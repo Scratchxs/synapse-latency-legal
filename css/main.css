@@ -42,6 +42,19 @@ body {
     transition: background-color 0.3s ease;
 }
 
+/* Hide content until page is fully loaded */
+html.loading .container {
+    opacity: 0;
+    visibility: hidden;
+}
+
+/* Ensure content is visible when loading class is removed */
+html:not(.loading) .container {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.5s ease;
+}
+
 .container {
     max-width: 800px;
     margin: 2rem auto;

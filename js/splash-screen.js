@@ -274,13 +274,10 @@ class SplashScreen {
                 if (this.splashContainer && this.splashContainer.parentNode) {
                     this.splashContainer.parentNode.removeChild(this.splashContainer);
                 }
-                // Show main content after splash screen is removed
-                gsap.to('.container', {
-                    opacity: 1,
-                    visibility: 'visible',
-                    duration: 0.5,
-                    ease: AnimationConfig.ease.smooth
-                });
+                
+                // Remove loading class to show content
+                document.documentElement.classList.remove('loading');
+                
                 console.log("Splash screen animation completed and removed");
             }
         });
@@ -366,13 +363,10 @@ class SplashScreen {
                 if (this.splashContainer && this.splashContainer.parentNode) {
                     this.splashContainer.parentNode.removeChild(this.splashContainer);
                 }
-                // Show main content after splash screen is removed (for reduced motion)
-                gsap.to('.container', {
-                    opacity: 1,
-                    visibility: 'visible',
-                    duration: 0.3, // Shorter duration for reduced motion
-                    ease: "power1.out"
-                });
+                
+                // Remove loading class to show content
+                document.documentElement.classList.remove('loading');
+                
                 console.log("Splash screen animation completed and removed (reduced motion)");
             }
         });
@@ -579,5 +573,8 @@ window.addEventListener('DOMContentLoaded', () => {
             console.warn('Forcing splash screen removal after timeout');
             splashScreen.parentNode.removeChild(splashScreen);
         }
+        
+        // Ensure content is shown even if splash screen fails
+        document.documentElement.classList.remove('loading');
     }, 5000);
 });
