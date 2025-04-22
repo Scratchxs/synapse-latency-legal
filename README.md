@@ -1,27 +1,29 @@
 # Synapse: Latency - Legal
 
-This repo exists because Google and society insist on things like "privacy" and "user rights."  
-You're not supposed to be reading this.  
-Just visit the website: [https://privacy.anthem-syndicate.com](https://privacy.anthem-syndicate.com)
+This repository exists because certain institutions demand the existence of a Privacy Policy.
 
-There's nothing else interesting here unless you enjoy poking through CSS animations, particle effects, and an unhealthy attention to unnecessary polish.
+You are not expected to be here.  
+You are expected to visit [https://privacy.anthem-syndicate.com](https://privacy.anthem-syndicate.com) like a normal person.
 
-Carry on.
+If you are reading this README, you may have noticed that the privacy policy has an uncomfortable amount of styling and animation for something nobody asked for.  
+That is not a mistake.  
+Please do not question it.
 
 ## Contents
 
-- `index.html` — The "official" Privacy Policy. It looks suspiciously better than it needs to.
-- `/css/` — Dark magic styling.
-- `/js/` — More animation than strictly necessary for a legal document.
-- `/assets/` — Logos and particles pretending this is a serious website.
+- `index.html` — A Privacy Policy. Unnecessarily complicated.
+- `/css/` — Styling that serves no functional legal purpose.
+- `/js/` — Animations suggesting a questionable allocation of development resources.
+- `/assets/` - Visual distractions intended to mask the otherwise grim nature of legal compliance.
 
 ## License
 
-No license.  
-You can't reuse this.  
-Don't steal our bad jokes.
+None.  
+This was built for one purpose and one purpose only.  
+You are not permitted to borrow, reuse, or improve it.
 
 ## End
 
-That's it.  
-Go read the Privacy Policy like the responsible human you are.
+There is nothing else here.  
+Seriously.  
+Go back to pretending you didn’t look.
