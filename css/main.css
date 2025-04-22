@@ -1,24 +1,29 @@
 /**
  * Main Styles for Synapse: Latency Privacy Policy
- * Dark theme with purple accents
+ * Dark Steely Gray theme
  */
 
+@font-face {
+    font-family: 'PixeloidSans';
+    src: url('../assets/font/PixeloidSans.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
-    /* Dark theme colors */
-    --background-dark: #121212;
-    --background-darker: #0a0a0a;
-    --background-lighter: #1e1e24;
-    --text-primary: #e0e0e0;
-    --text-secondary: #a0a0a0;
-    --text-muted: #707070;
-    
-    /* Purple accent colors */
-    --purple-primary: #8A2BE2; /* BlueViolet */
-    --purple-light: #b44dff;
-    --purple-dark: #6a1cb1;
-    --purple-glow: rgba(138, 43, 226, 0.3);
-    
-    /* Additional colors */
+    /* Dark Steely Gray theme colors */
+    --background-main: #0a0a0f;
+    --background-alt: #12121a;
+    --text-main: #e0e0e0;
+    --accent-subtle: #8d8d8d;
+    --accent-alt: #4a4a4a;
+    --highlight: #b0b0b0;
+    --neon-blue: rgba(0, 195, 255, 0.7);
+    --neon-purple: rgba(128, 0, 255, 0.7);
+    --grid-color: rgba(50, 50, 70, 0.15);
+    --highlight-glow: rgba(176, 176, 176, 0.3); /* Derived from --highlight */
+
+    /* Retained colors (adjust if needed) */
     --red-accent: #ff4d6d;
     --green-accent: #4dff88;
     --blue-accent: #4d88ff;
@@ -31,9 +36,9 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--background-dark);
-    color: var(--text-primary);
+    font-family: 'PixeloidSans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Added PixeloidSans */
+    background-color: var(--background-main);
+    color: var(--text-main);
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -59,9 +64,9 @@ html:not(.loading) .container {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: var(--background-lighter);
+    background-color: var(--background-alt);
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(138, 43, 226, 0.2);
+    box-shadow: 0 4px 20px rgba(176, 176, 176, 0.1); /* Adjusted shadow */
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
@@ -77,7 +82,7 @@ html:not(.loading) .container {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, var(--purple-dark), var(--purple-primary), var(--purple-light));
+    background: linear-gradient(90deg, var(--accent-alt), var(--accent-subtle), var(--highlight)); /* Adjusted gradient */
     z-index: 1;
 }
 
@@ -89,20 +94,23 @@ html:not(.loading) .container {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%238a2be2' fill-opacity='0.05' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='1'/%3E%3Ccircle cx='13' cy='13' r='1'/%3E%3C/g%3E%3C/svg%3E");
+    /* Updated grid color and opacity */
+    background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(to right, var(--grid-color) 1px, transparent 1px);
+    background-size: 20px 20px;
     pointer-events: none;
     z-index: -1;
+    opacity: 0.5; /* Make grid more subtle */
 }
 
 h1 {
-    color: var(--purple-primary);
+    color: var(--highlight); /* Use highlight color */
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid rgba(138, 43, 226, 0.2);
+    border-bottom: 2px solid var(--accent-alt); /* Use alternative accent */
     position: relative;
-    text-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+    text-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
 }
 
 h1::after {
@@ -113,15 +121,15 @@ h1::after {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background-color: var(--purple-primary);
+    background-color: var(--highlight); /* Use highlight color */
 }
 
 h2 {
-    color: var(--purple-light);
+    color: var(--accent-subtle); /* Use subtle accent */
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid rgba(138, 43, 226, 0.1);
+    border-bottom: 1px solid var(--accent-alt); /* Use alternative accent */
     font-size: 1.5rem;
     position: relative;
 }
@@ -133,18 +141,18 @@ h2::before {
     top: 0.5rem;
     width: 5px;
     height: 1rem;
-    background-color: var(--purple-primary);
+    background-color: var(--accent-subtle); /* Use subtle accent */
     border-radius: 2px;
 }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text-primary);
+    color: var(--text-main); /* Use main text color */
     transition: color 0.3s ease;
 }
 
 p em {
-    color: var(--text-secondary);
+    color: var(--accent-subtle); /* Use subtle accent */
     font-style: italic;
     display: block;
     text-align: center;
@@ -163,27 +171,27 @@ li {
 }
 
 li::before {
-    content: '•';
-    color: var(--purple-primary);
+    content: '>'; /* Changed bullet style */
+    color: var(--highlight); /* Use highlight color */
     position: absolute;
     left: 0;
     font-size: 1.2rem;
 }
 
 strong {
-    color: var(--red-accent);
+    color: var(--highlight); /* Use highlight for emphasis */
     font-weight: bold;
 }
 
 a {
-    color: var(--purple-primary);
+    color: var(--highlight); /* Use highlight color */
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease;
 }
 
 a:hover {
-    color: var(--purple-light);
+    color: var(--text-main); /* Hover to main text color */
     text-decoration: none;
 }
 
@@ -195,7 +203,7 @@ a::after {
     height: 1px;
     bottom: -2px;
     left: 0;
-    background-color: var(--purple-primary);
+    background-color: var(--highlight); /* Use highlight color */
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
@@ -210,9 +218,9 @@ a:hover::after {
     text-align: center;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(138, 43, 226, 0.2);
+    border-top: 1px solid var(--accent-alt); /* Use alternative accent */
     font-style: italic;
-    color: var(--text-secondary);
+    color: var(--accent-subtle); /* Use subtle accent */
     position: relative;
 }
 
@@ -221,14 +229,14 @@ a:hover::after {
     text-align: center;
     font-size: 2rem;
     margin-top: 1.5rem;
-    color: var(--purple-primary);
-    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
+    color: var(--highlight); /* Use highlight color */
+    text-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .smiley:hover {
-    color: var(--purple-light);
+    color: var(--text-main); /* Hover to main text color */
     transform: scale(1.2) rotate(10deg);
 }
 
@@ -238,16 +246,16 @@ a:hover::after {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--background-darker);
+    background: var(--background-main); /* Use main background */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--purple-dark);
+    background: var(--accent-alt); /* Use alternative accent */
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--purple-primary);
+    background: var(--accent-subtle); /* Use subtle accent on hover */
 }
 
 /* Responsive adjustments */
@@ -268,17 +276,17 @@ a:hover::after {
 
 /* Selection styling */
 ::selection {
-    background-color: var(--purple-primary);
-    color: white;
+    background-color: var(--highlight); /* Use highlight color */
+    color: var(--background-main); /* Use main background for contrast */
 }
 
 /* Animation keyframes */
 @keyframes glow {
     0%, 100% {
-        box-shadow: 0 0 10px rgba(138, 43, 226, 0.3);
+        box-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
     }
     50% {
-        box-shadow: 0 0 20px rgba(138, 43, 226, 0.5);
+        box-shadow: 0 0 20px rgba(176, 176, 176, 0.5); /* Brighter highlight glow */
     }
 }
 
