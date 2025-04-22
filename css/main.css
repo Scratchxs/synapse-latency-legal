@@ -52,6 +52,8 @@ body {
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
+    opacity: 0; /* Hide content initially */
+    visibility: hidden; /* Ensure it's not visible or interactive */
 }
 
 /* Add a subtle glow effect to the container */

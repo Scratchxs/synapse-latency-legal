@@ -274,6 +274,13 @@ class SplashScreen {
                 if (this.splashContainer && this.splashContainer.parentNode) {
                     this.splashContainer.parentNode.removeChild(this.splashContainer);
                 }
+                // Show main content after splash screen is removed
+                gsap.to('.container', {
+                    opacity: 1,
+                    visibility: 'visible',
+                    duration: 0.5,
+                    ease: AnimationConfig.ease.smooth
+                });
                 console.log("Splash screen animation completed and removed");
             }
         });
@@ -359,6 +366,13 @@ class SplashScreen {
                 if (this.splashContainer && this.splashContainer.parentNode) {
                     this.splashContainer.parentNode.removeChild(this.splashContainer);
                 }
+                // Show main content after splash screen is removed (for reduced motion)
+                gsap.to('.container', {
+                    opacity: 1,
+                    visibility: 'visible',
+                    duration: 0.3, // Shorter duration for reduced motion
+                    ease: "power1.out"
+                });
                 console.log("Splash screen animation completed and removed (reduced motion)");
             }
         });
