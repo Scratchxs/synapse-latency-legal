@@ -8,9 +8,9 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Use new background colors */
-    background-color: var(--background-main, #0a0a0f);
-    background: linear-gradient(135deg, var(--background-main, #0a0a0f) 0%, var(--background-alt, #12121a) 100%);
+    /* Use updated background colors from main.css */
+    background-color: var(--bg-color);
+    background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-color-alt) 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,8 +36,8 @@
     height: 120px;
     transform-origin: center center;
     margin-bottom: 20px;
-    /* Use highlight glow for drop shadow */
-    filter: drop-shadow(0 0 10px var(--highlight-glow, rgba(176, 176, 176, 0.3)));
+    /* Use updated highlight glow */
+    filter: drop-shadow(0 0 10px var(--highlight-glow));
 }
 
 .logo-text {
@@ -52,9 +52,9 @@
     display: block;
     margin-bottom: 8px;
     letter-spacing: 1.5px;
-    color: var(--text-main, #e0e0e0) !important; /* Use main text color */
-    /* Use brighter highlight glow for text shadow */
-    text-shadow: 0 0 10px rgba(176, 176, 176, 0.5);
+    color: var(--accent-color); /* Updated from source */
+    /* Use updated text shadow from source */
+    text-shadow: 0 0 10px var(--glow-color); /* Updated from source */
     position: relative;
     z-index: 1;
 }
@@ -66,8 +66,8 @@
     font-weight: 500;
     position: relative;
     z-index: 1;
-    color: var(--highlight, #b0b0b0) !important; /* Use highlight color */
-    text-shadow: 0 0 5px var(--highlight-glow, rgba(176, 176, 176, 0.3)); /* Use highlight glow */
+    color: var(--text-color); /* Updated from source */
+    text-shadow: 0 0 8px var(--glow-color); /* Updated from source */
 }
 
 .splash-particles {
@@ -81,12 +81,9 @@
 
 .splash-particle {
     position: absolute;
-    /* Use neon colors for particles, alternating */
-    /* background-color: var(--neon-blue); */ /* Example: Use neon blue */
-    /* background-color: var(--neon-purple); */ /* Example: Use neon purple */
-    background-color: var(--accent-subtle, #8d8d8d); /* Using subtle accent for now */
+    /* Background color is set dynamically in JS based on source */
     border-radius: 50%;
-    opacity: 0.3; /* Keep opacity low */
+    opacity: 0.6;
     pointer-events: none;
     will-change: transform, opacity;
     transform: translate3d(0, 0, 0);
@@ -95,24 +92,24 @@
 /* Add a subtle glow effect to the logo */
 @keyframes logoGlow {
     0%, 100% {
-        /* Use highlight glow */
-        filter: drop-shadow(0 0 8px var(--highlight-glow, rgba(176, 176, 176, 0.3)));
+        /* Use updated highlight glow */
+        filter: drop-shadow(0 0 8px var(--highlight-glow));
     }
     50% {
-        /* Use brighter highlight glow */
-        filter: drop-shadow(0 0 20px rgba(176, 176, 176, 0.5));
+        /* Use brighter highlight glow - using glow-color directly */
+        filter: drop-shadow(0 0 20px var(--glow-color));
     }
 }
 
 /* Add a subtle pulse effect to the text */
 @keyframes textPulse {
     0%, 100% {
-        /* Use highlight glow */
-        text-shadow: 0 0 8px var(--highlight-glow, rgba(176, 176, 176, 0.3));
+        /* Use updated highlight glow */
+        text-shadow: 0 0 8px var(--highlight-glow);
     }
     50% {
-         /* Use brighter highlight glow */
-        text-shadow: 0 0 15px rgba(176, 176, 176, 0.5);
+         /* Use brighter highlight glow - using glow-color directly */
+        text-shadow: 0 0 15px var(--glow-color);
     }
 }
 
@@ -124,8 +121,8 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Use highlight glow and background colors for gradient */
-    background: radial-gradient(circle at center, var(--highlight-glow, rgba(176, 176, 176, 0.1)) 0%, var(--background-alt, rgba(18, 18, 26, 0.3)) 100%);
+    /* Use updated highlight glow and background colors */
+    background: radial-gradient(circle at center, var(--highlight-glow) 0%, rgba(18, 18, 26, 0.3) 100%); /* Keep second color transparent */
     pointer-events: none;
     will-change: opacity;
 }

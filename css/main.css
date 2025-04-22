@@ -11,22 +11,20 @@
 }
 
 :root {
-    /* Dark Steely Gray theme colors */
-    --background-main: #0a0a0f;
-    --background-alt: #12121a;
-    --text-main: #e0e0e0;
-    --accent-subtle: #8d8d8d;
-    --accent-alt: #4a4a4a;
-    --highlight: #b0b0b0;
-    --neon-blue: rgba(0, 195, 255, 0.7);
-    --neon-purple: rgba(128, 0, 255, 0.7);
-    --grid-color: rgba(50, 50, 70, 0.15);
-    --highlight-glow: rgba(176, 176, 176, 0.3); /* Derived from --highlight */
-
-    /* Retained colors (adjust if needed) */
-    --red-accent: #ff4d6d;
-    --green-accent: #4dff88;
-    --blue-accent: #4d88ff;
+    --bg-color: #0a0a0f;
+    --bg-color-alt: #12121a;
+    --text-color: #e0e0e0;
+    --accent-color: #8d8d8d;
+    --accent-color-alt: #4a4a4a;
+    --glow-color: rgba(141, 141, 141, 0.5);
+    --highlight-color: #b0b0b0;
+    --dark-accent: #2d2d30;
+    --medium-accent: #3e3e42;
+    --neon-blue: rgba(0, 195, 255, 0.7); /* Added from source */
+    --neon-purple: rgba(128, 0, 255, 0.7); /* Added from source */
+    --grid-color: rgba(50, 50, 70, 0.15); /* Corrected from source */
+    --red-accent: #5b0909; /* Keep this, maps to source gradient red */
+    --highlight-glow: var(--glow-color); /* Keep this, maps to source glow */
 }
 
 * {
@@ -37,8 +35,8 @@
 
 body {
     font-family: 'PixeloidSans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Added PixeloidSans */
-    background-color: var(--background-main);
-    color: var(--text-main);
+    background-color: var(--bg-color); /* Updated */
+    color: var(--text-color); /* Updated */
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -64,14 +62,15 @@ html:not(.loading) .container {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: var(--background-alt);
+    background-color: rgba(18, 18, 26, 0.9); /* Updated --bg-color-alt (#12121a) with 90% opacity */
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(176, 176, 176, 0.1); /* Adjusted shadow */
+    box-shadow: 0 4px 20px rgba(141, 141, 141, 0.1); /* Adjusted shadow using accent-color base */
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
     opacity: 0; /* Hide content initially */
     visibility: hidden; /* Ensure it's not visible or interactive */
+    z-index: 10; /* Ensure container is above the gradient */
 }
 
 /* Add a subtle glow effect to the container */
@@ -82,7 +81,7 @@ html:not(.loading) .container {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, var(--accent-alt), var(--accent-subtle), var(--highlight)); /* Adjusted gradient */
+    background: linear-gradient(90deg, var(--accent-color-alt), var(--accent-color), var(--highlight-color)); /* Updated gradient */
     z-index: 1;
 }
 
@@ -103,14 +102,14 @@ html:not(.loading) .container {
 }
 
 h1 {
-    color: var(--highlight); /* Use highlight color */
+    color: var(--highlight-color); /* Updated */
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--accent-alt); /* Use alternative accent */
+    border-bottom: 2px solid var(--accent-color-alt); /* Updated */
     position: relative;
-    text-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
+    text-shadow: 0 0 10px var(--highlight-glow); /* Updated */
 }
 
 h1::after {
@@ -121,15 +120,15 @@ h1::after {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background-color: var(--highlight); /* Use highlight color */
+    background-color: var(--highlight-color); /* Updated */
 }
 
 h2 {
-    color: var(--accent-subtle); /* Use subtle accent */
+    color: var(--accent-color); /* Updated */
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--accent-alt); /* Use alternative accent */
+    border-bottom: 1px solid var(--accent-color-alt); /* Updated */
     font-size: 1.5rem;
     position: relative;
 }
@@ -141,18 +140,18 @@ h2::before {
     top: 0.5rem;
     width: 5px;
     height: 1rem;
-    background-color: var(--accent-subtle); /* Use subtle accent */
+    background-color: var(--accent-color); /* Updated */
     border-radius: 2px;
 }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text-main); /* Use main text color */
+    color: var(--text-color); /* Updated */
     transition: color 0.3s ease;
 }
 
 p em {
-    color: var(--accent-subtle); /* Use subtle accent */
+    color: var(--accent-color); /* Updated */
     font-style: italic;
     display: block;
     text-align: center;
@@ -172,26 +171,26 @@ li {
 
 li::before {
     content: '>'; /* Changed bullet style */
-    color: var(--highlight); /* Use highlight color */
+    color: var(--highlight-color); /* Updated */
     position: absolute;
     left: 0;
     font-size: 1.2rem;
 }
 
 strong {
-    color: var(--highlight); /* Use highlight for emphasis */
+    color: var(--highlight-color); /* Updated */
     font-weight: bold;
 }
 
 a {
-    color: var(--highlight); /* Use highlight color */
+    color: var(--highlight-color); /* Updated */
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease;
 }
 
 a:hover {
-    color: var(--text-main); /* Hover to main text color */
+    color: var(--text-color); /* Updated */
     text-decoration: none;
 }
 
@@ -203,7 +202,7 @@ a::after {
     height: 1px;
     bottom: -2px;
     left: 0;
-    background-color: var(--highlight); /* Use highlight color */
+    background-color: var(--highlight-color); /* Updated */
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
@@ -218,9 +217,9 @@ a:hover::after {
     text-align: center;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--accent-alt); /* Use alternative accent */
+    border-top: 1px solid var(--accent-color-alt); /* Updated */
     font-style: italic;
-    color: var(--accent-subtle); /* Use subtle accent */
+    color: var(--accent-color); /* Updated */
     position: relative;
 }
 
@@ -229,14 +228,14 @@ a:hover::after {
     text-align: center;
     font-size: 2rem;
     margin-top: 1.5rem;
-    color: var(--highlight); /* Use highlight color */
-    text-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
+    color: var(--highlight-color); /* Updated */
+    text-shadow: 0 0 10px var(--highlight-glow); /* Updated */
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .smiley:hover {
-    color: var(--text-main); /* Hover to main text color */
+    color: var(--text-color); /* Updated */
     transform: scale(1.2) rotate(10deg);
 }
 
@@ -246,16 +245,16 @@ a:hover::after {
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--background-main); /* Use main background */
+    background: var(--bg-color); /* Updated */
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent-alt); /* Use alternative accent */
+    background: var(--accent-color-alt); /* Updated */
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-subtle); /* Use subtle accent on hover */
+    background: var(--accent-color); /* Updated */
 }
 
 /* Responsive adjustments */
@@ -264,11 +263,11 @@ a:hover::after {
         margin: 1rem;
         padding: 1.5rem;
     }
-    
+
     h1 {
         font-size: 2rem;
     }
-    
+
     h2 {
         font-size: 1.3rem;
     }
@@ -276,8 +275,8 @@ a:hover::after {
 
 /* Selection styling */
 ::selection {
-    background-color: var(--highlight); /* Use highlight color */
-    color: var(--background-main); /* Use main background for contrast */
+    background-color: var(--highlight-color); /* Updated */
+    color: var(--bg-color); /* Updated */
 }
 
 /* Animation keyframes */
@@ -307,4 +306,98 @@ a:hover::after {
 /* Add a subtle glow animation to the container on hover */
 .container:hover {
     animation: glow 3s infinite;
+}
+/* Added bottom gradient */
+.bottom-gradient {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 30%; /* Covers the bottom 30% of the viewport */
+    background: linear-gradient(to top, #5b0909 0%, rgba(91, 9, 9, 0) 100%); /* Red to transparent */
+    z-index: 1; /* Lower z-index to be behind container */
+    pointer-events: none; /* Make sure it doesn't interfere with clicks */
+    opacity: 0.6; /* Adjust opacity as needed */
+}
+/* Custom Cursor Effects from Source Project */
+.cursor-trail {
+    position: fixed;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 1px solid var(--highlight-color);
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-glitch {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    background-color: var(--highlight-color);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.cursor-ripple {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid var(--highlight-color);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 9998;
+}
+/* QOL: Subtle Glitch Effect on Header Hover */
+@keyframes subtleGlitch {
+    0% { transform: translate(0, 0); }
+    25% { transform: translate(-1px, 1px); color: var(--highlight-color); }
+    50% { transform: translate(1px, -1px); }
+    75% { transform: translate(1px, 1px); color: var(--accent-color); }
+    100% { transform: translate(0, 0); }
+}
+
+h2 {
+    /* Add transition for smoother effect entry/exit */
+    transition: color 0.2s ease;
+}
+
+h2:hover {
+    /* Apply the glitch animation on hover */
+    animation: subtleGlitch 0.2s linear 1;
+    color: var(--highlight-color); /* Ensure color changes on hover */
+}
+/* QOL: Animated List Bullets */
+@keyframes bulletFadeIn {
+    from { opacity: 0; transform: translateX(-5px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+li::before {
+    /* Apply fade-in animation */
+    animation: bulletFadeIn 0.5s ease-out forwards;
+    opacity: 0; /* Start hidden */
+}
+
+/* Optional: Add slight delay based on list item index if needed via JS,
+   but a simple CSS animation is often sufficient */
+/* QOL: Scrollbar Enhancement */
+::-webkit-scrollbar-thumb {
+    /* Add transition for smooth hover effect */
+    transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-color); /* Keep existing hover color */
+    /* Add subtle glow using highlight-glow variable */
+    box-shadow: 0 0 8px var(--highlight-glow);
 }

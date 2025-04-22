@@ -149,7 +149,7 @@ class SplashScreen {
         flash.style.left = '0';
         flash.style.width = '100%';
         flash.style.height = '100%';
-        flash.style.backgroundColor = '#8A2BE2';
+        flash.style.backgroundColor = '#8d8d8d'; /* Changed from purple to grey (from source) */
         flash.style.opacity = '0';
         flash.style.pointerEvents = 'none';
         flash.style.zIndex = '3';
@@ -289,7 +289,7 @@ class SplashScreen {
         flash.style.left = '0';
         flash.style.width = '100%';
         flash.style.height = '100%';
-        flash.style.backgroundColor = '#8A2BE2';
+        flash.style.backgroundColor = '#8d8d8d'; /* Changed from purple to grey (from source) */
         flash.style.opacity = '0';
         flash.style.pointerEvents = 'none';
         flash.style.zIndex = '3';
@@ -389,16 +389,17 @@ class SplashScreen {
     createParticles() {
         // Create enhanced particles with GSAP animations
         const particleCount = AnimationConfig.device.getParticleCount(); // Use device-specific count
-        
-        // Updated particle colors based on dark purple theme
+
+        // Steely grey color palette from source project
         const colors = [
-            'rgba(255, 255, 255, 0.7)', // White with opacity
-            'rgba(255, 255, 255, 0.5)', // White with opacity
-            'rgba(138, 43, 226, 0.6)',  // BlueViolet with opacity
-            'rgba(138, 43, 226, 0.4)',  // BlueViolet with opacity
-            'rgba(75, 0, 130, 0.5)'     // Indigo with opacity
+            'rgba(141, 141, 141, 0.7)',   // Medium grey
+            'rgba(141, 141, 141, 0.4)',   // Medium grey (dimmer)
+            'rgba(176, 176, 176, 0.7)',   // Light grey
+            'rgba(176, 176, 176, 0.4)',   // Light grey (dimmer)
+            'rgba(255, 255, 255, 0.7)',   // White
+            'rgba(74, 74, 74, 0.5)'       // Dark grey
         ];
-        
+
         // Create particles
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');
@@ -472,8 +473,8 @@ class SplashScreen {
             orb.style.top = `${y}%`;
             orb.style.width = `${size}px`;
             orb.style.height = `${size}px`;
-            orb.style.backgroundColor = 'rgba(138, 43, 226, 0.1)';
-            orb.style.boxShadow = `0 0 ${size}px rgba(138, 43, 226, 0.3)`;
+            orb.style.backgroundColor = 'rgba(141, 141, 141, 0.1)'; /* Changed from purple to grey */
+            orb.style.boxShadow = `0 0 ${size}px rgba(141, 141, 141, 0.3)`; /* Changed from purple to grey */
             orb.style.borderRadius = '50%';
             orb.style.filter = 'blur(5px)';
             
@@ -498,14 +499,17 @@ class SplashScreen {
     createMinimalParticles() {
         // Use fewer particles
         const particleCount = AnimationConfig.device.isMobile() ? 10 : 20;
-        
-        // Updated particle colors based on dark purple theme
+
+        // Steely grey color palette from source project (for minimal particles)
         const colors = [
-            'rgba(255, 255, 255, 0.5)', // White with opacity
-            'rgba(138, 43, 226, 0.4)',  // BlueViolet with opacity
-            'rgba(75, 0, 130, 0.3)'     // Indigo with opacity
+            'rgba(141, 141, 141, 0.7)',   // Medium grey
+            'rgba(141, 141, 141, 0.4)',   // Medium grey (dimmer)
+            'rgba(176, 176, 176, 0.7)',   // Light grey
+            'rgba(176, 176, 176, 0.4)',   // Light grey (dimmer)
+            'rgba(255, 255, 255, 0.7)',   // White
+            'rgba(74, 74, 74, 0.5)'       // Dark grey
         ];
-        
+
         // Create particles with minimal movement
         for (let i = 0; i < particleCount; i++) {
             const particle = document.createElement('div');

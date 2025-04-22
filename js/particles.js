@@ -4,6 +4,16 @@
  * Implements performance optimizations and accessibility features
  */
 
+// Steely grey color palette from source project
+const particleColors = [
+    'rgba(141, 141, 141, 0.7)',   // Medium grey
+    'rgba(141, 141, 141, 0.4)',   // Medium grey (dimmer)
+    'rgba(176, 176, 176, 0.7)',   // Light grey
+    'rgba(176, 176, 176, 0.4)',   // Light grey (dimmer)
+    'rgba(255, 255, 255, 0.7)',   // White
+    'rgba(74, 74, 74, 0.5)'       // Dark grey
+];
+
 class ParticleBackground {
     constructor(options = {}) {
         // Check for reduced motion preference
@@ -13,9 +23,9 @@ class ParticleBackground {
         this.options = {
             container: document.body,
             particleCount: AnimationConfig.device.isMobile() ? 30 : 60,
-            particleColor: '#8A2BE2', // BlueViolet
+            // particleColor: '#5b0909', // Color is now selected randomly from particleColors array
             particleSize: [1, 3],
-            particleOpacity: this.reducedMotion ? 0.3 : 0.5,
+            particleOpacity: this.reducedMotion ? 0.4 : 0.6, // Use original opacity logic
             particleSpeed: this.reducedMotion ? 0.5 : 1,
             interactive: !this.reducedMotion,
             ...options
@@ -84,21 +94,21 @@ class ParticleBackground {
     createParticles() {
         this.particles = [];
         
-        // Create particle colors array
-        const colors = [
-            '#8A2BE2', // BlueViolet (primary)
-            '#9932CC', // DarkOrchid
-            '#9400D3', // DarkViolet
-            '#4B0082', // Indigo
-            '#483D8B'  // DarkSlateBlue
-        ];
-        
-        // Create particles
+        // Create particles using the defined red accent color
         for (let i = 0; i < this.options.particleCount; i++) {
             const size = this.random(this.options.particleSize[0], this.options.particleSize[1]);
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            const opacity = this.random(0.1, this.options.particleOpacity);
-            
+            // Select a random color from the steely grey palette
+            const color = particleColors[Math.floor(Math.random() * particleColors.length)];
+            // Extract opacity from RGBA string if possible, otherwise use default logic
+            let opacity;
+            const rgbaMatch = color.match(/rgba?\(\s*\d+\s*,\s*\d+\s*,\s*\d+\s*,\s*([\d.]+)\s*\)/);
+            if (rgbaMatch && rgbaMatch[1]) {
+                opacity = parseFloat(rgbaMatch[1]);
+            } else {
+                opacity = this.random(0.1, this.options.particleOpacity); // Fallback
+            }
+
+
             this.particles.push({
                 x: Math.random() * this.width,
                 y: Math.random() * this.height,
@@ -199,10 +209,12 @@ class ParticleBackground {
         this.particles.forEach(particle => {
             this.ctx.beginPath();
             this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-            this.ctx.fillStyle = this.hexToRgba(particle.color, particle.opacity);
+            // Use the particle's color directly (it's already RGBA)
+            this.ctx.fillStyle = particle.color;
             this.ctx.fill();
-            
+
             // Add glow effect
+            // Use the particle's color for the shadow as well
             this.ctx.shadowBlur = particle.size * 2;
             this.ctx.shadowColor = particle.color;
         });
@@ -225,13 +237,16 @@ class ParticleBackground {
         return Math.random() * (max - min) + min;
     }
 
+    // hexToRgba function is no longer needed as colors are RGBA strings
+    /*
     hexToRgba(hex, opacity) {
         let r = parseInt(hex.slice(1, 3), 16);
         let g = parseInt(hex.slice(3, 5), 16);
         let b = parseInt(hex.slice(5, 7), 16);
-        
+
         return `rgba(${r}, ${g}, ${b}, ${opacity})`;
     }
+    */
 
     debounce(func, wait) {
         let timeout;
