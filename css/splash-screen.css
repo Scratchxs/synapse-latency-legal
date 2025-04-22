@@ -1,0 +1,148 @@
+/**
+ * Splash Screen Styles for Synapse: Latency Privacy Policy
+ */
+
+.splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #1a1a2e; /* Dark background */
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); /* Gradient background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    overflow: hidden;
+    will-change: transform, opacity, height;
+    transform: translateZ(0);
+}
+
+.splash-logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    will-change: transform, opacity;
+    transform: translateZ(0);
+}
+
+.splash-logo {
+    width: 120px;
+    height: 120px;
+    transform-origin: center center;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 0 10px rgba(138, 43, 226, 0.6));
+}
+
+.logo-text {
+    margin-top: 20px;
+    text-align: center;
+    position: relative;
+}
+
+.logo-text-primary {
+    font-size: 2.5rem;
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    letter-spacing: 1.5px;
+    color: #ffffff !important;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.8);
+    position: relative;
+    z-index: 1;
+}
+
+.logo-text-secondary {
+    font-size: 1.2rem;
+    opacity: 1;
+    letter-spacing: 1.5px;
+    font-weight: 500;
+    position: relative;
+    z-index: 1;
+    color: #8A2BE2 !important;
+    text-shadow: 0 0 5px rgba(138, 43, 226, 0.5);
+}
+
+.splash-particles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.splash-particle {
+    position: absolute;
+    background-color: rgba(138, 43, 226, 0.5);
+    border-radius: 50%;
+    opacity: 0.3;
+    pointer-events: none;
+    will-change: transform, opacity;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Add a subtle glow effect to the logo */
+@keyframes logoGlow {
+    0%, 100% {
+        filter: drop-shadow(0 0 8px rgba(138, 43, 226, 0.5));
+    }
+    50% {
+        filter: drop-shadow(0 0 20px rgba(138, 43, 226, 0.8));
+    }
+}
+
+/* Add a subtle pulse effect to the text */
+@keyframes textPulse {
+    0%, 100% {
+        text-shadow: 0 0 8px rgba(138, 43, 226, 0.5);
+    }
+    50% {
+        text-shadow: 0 0 15px rgba(138, 43, 226, 0.8);
+    }
+}
+
+/* Add a subtle gradient overlay */
+.splash-screen::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, rgba(138, 43, 226, 0.1) 0%, rgba(26, 26, 46, 0.3) 100%);
+    pointer-events: none;
+    will-change: opacity;
+}
+
+/* Add a subtle vignette effect */
+.splash-screen::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .splash-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .logo-text-primary {
+        font-size: 2rem;
+    }
+    
+    .logo-text-secondary {
+        font-size: 1rem;
+    }
+}
