@@ -39,9 +39,13 @@ function initCyberpunkSplashScreen(reducedMotion) {
     // Generate binary data text
     generateBinaryData();
     
-    // Set initial states for header elements (for later use)
-    gsap.set(".logo", { scale: 0, opacity: 0 });
-    gsap.set(".company-name", { opacity: 0 });
+    // Set initial states for header elements (if they exist)
+    if (document.querySelector(".logo")) {
+        gsap.set(".logo", { scale: 0, opacity: 0 });
+    }
+    if (document.querySelector(".company-name")) {
+        gsap.set(".company-name", { opacity: 0 });
+    }
     
     // Set initial states for splash elements
     gsap.set(".splash-logo", { opacity: 0 });
@@ -618,22 +622,23 @@ function fadeOutSplashScreen(reducedMotion) {
             // --- IMPORTANT: Set initial states *before* fade-in starts ---
             if (reducedMotion) {
                 // Initial states for reduced motion
-                gsap.set(".main-text-container", { opacity: 0 });
-                gsap.set(".glitch-title", { opacity: 0 });
-                gsap.set(".subtitle", { opacity: 0 });
-                gsap.set(".neon-button", { opacity: 0 });
-                gsap.set(".cyber-grid", { opacity: 0 });
-                gsap.set(".logo", { opacity: 0 }); // Also hide header logo
-                gsap.set(".company-name", { opacity: 0 }); // Also hide header text
+                // Initial states for reduced motion (only if elements exist)
+                if (document.querySelector(".main-text-container")) gsap.set(".main-text-container", { opacity: 0 });
+                if (document.querySelector(".glitch-title")) gsap.set(".glitch-title", { opacity: 0 });
+                if (document.querySelector(".subtitle")) gsap.set(".subtitle", { opacity: 0 });
+                if (document.querySelector(".neon-button")) gsap.set(".neon-button", { opacity: 0 });
+                if (document.querySelector(".cyber-grid")) gsap.set(".cyber-grid", { opacity: 0 });
+                if (document.querySelector(".logo")) gsap.set(".logo", { opacity: 0 }); // Also hide header logo
+                if (document.querySelector(".company-name")) gsap.set(".company-name", { opacity: 0 }); // Also hide header text
             } else {
-                // Initial states for full animations
-                gsap.set(".main-text-container", { opacity: 0, y: 30 });
-                gsap.set(".glitch-title", { opacity: 0 });
-                gsap.set(".subtitle", { opacity: 0 });
-                gsap.set(".neon-button", { opacity: 0, scale: 0.8 });
-                gsap.set(".cyber-grid", { opacity: 0, rotationX: 45 });
-                gsap.set(".glitch-element", { opacity: 0, scale: 0 });
-                gsap.set(".data-stream", { opacity: 0 });
+                // Initial states for full animations (only if elements exist)
+                if (document.querySelector(".main-text-container")) gsap.set(".main-text-container", { opacity: 0, y: 30 });
+                if (document.querySelector(".glitch-title")) gsap.set(".glitch-title", { opacity: 0 });
+                if (document.querySelector(".subtitle")) gsap.set(".subtitle", { opacity: 0 });
+                if (document.querySelector(".neon-button")) gsap.set(".neon-button", { opacity: 0, scale: 0.8 });
+                if (document.querySelector(".cyber-grid")) gsap.set(".cyber-grid", { opacity: 0, rotationX: 45 });
+                if (document.querySelector(".glitch-element")) gsap.set(".glitch-element", { opacity: 0, scale: 0 });
+                if (document.querySelector(".data-stream")) gsap.set(".data-stream", { opacity: 0 });
                 // Header elements already set in initCyberpunkSplashScreen
             }
             // --- End of initial state setting ---
@@ -650,10 +655,13 @@ function fadeOutSplashScreen(reducedMotion) {
                 ease: reducedMotion ? "power2.inOut" : "steps(5)",
                 onComplete: () => {
                     // Initialize main content animations (timelines only now)
-                    if (reducedMotion) {
-                        startReducedMotionAnimations();
-                    } else {
-                        startFullAnimations();
+                    // Start main content animations only if the main container exists
+                    if (document.querySelector(".main-text-container")) { // Check if a key element exists
+                        if (reducedMotion) {
+                            startReducedMotionAnimations();
+                        } else {
+                            startFullAnimations();
+                        }
                     }
                 }
             });
@@ -669,77 +677,99 @@ function startFullAnimations() {
     // Create a master timeline
     const tl = gsap.timeline();
 
-    // Animate header elements
-    tl.to(".logo", {
-        opacity: 1,
-        scale: 1,
-        duration: 0.6,
-        ease: "back.out(1.7)",
-        delay: 0.2 // Slight delay after main content starts appearing
-    });
-    tl.to(".company-name", {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.out",
-        delay: 0.4 // Stagger after logo
-    }, "<"); // Start slightly before the logo finishes
+    // Animate header elements (if they exist)
+    if (document.querySelector(".logo")) {
+        tl.to(".logo", {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "back.out(1.7)",
+            delay: 0.2 // Slight delay after main content starts appearing
+        });
+    }
+    if (document.querySelector(".company-name")) {
+        tl.to(".company-name", {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            delay: 0.4 // Stagger after logo
+        }, "<"); // Start slightly before the logo finishes
+    }
 
-    // Animate main content container
-    tl.to(".main-text-container", {
-        opacity: 1,
-        y: 0,
-        duration: 0.8,
-        ease: "power3.out"
-    });
+    // Animate main content container (if it exists)
+    if (document.querySelector(".main-text-container")) {
+        tl.to(".main-text-container", {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out"
+        });
+    }
 
-    // Animate title with glitch effect
-    tl.to(".glitch-title", {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.out",
-        onComplete: () => {
-            // Apply glitch animation
-            applyTitleGlitch();
-        }
-    }, "-=0.4");
+    // Animate title with glitch effect (if it exists)
+    if (document.querySelector(".glitch-title")) {
+        tl.to(".glitch-title", {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out",
+            onComplete: () => {
+                // Apply glitch animation (already checks internally)
+                applyTitleGlitch();
+            }
+        }, "-=0.4");
+    }
 
-    // Animate subtitle
-    tl.to(".subtitle", {
-        opacity: 1,
-        duration: 0.5,
-        ease: "power2.out"
-    }, "-=0.3");
+    // Animate subtitle (if it exists)
+    if (document.querySelector(".subtitle")) {
+        tl.to(".subtitle", {
+            opacity: 1,
+            duration: 0.5,
+            ease: "power2.out"
+        }, "-=0.3");
+    }
 
-    // Animate button
-    tl.to(".neon-button", {
-        opacity: 1,
-        scale: 1,
-        duration: 0.5,
-        ease: "back.out(1.7)"
-    }, "-=0.3");
+    // Animate button (if it exists)
+    if (document.querySelector(".neon-button")) {
+        tl.to(".neon-button", {
+            opacity: 1,
+            scale: 1,
+            duration: 0.5,
+            ease: "back.out(1.7)"
+        }, "-=0.3");
+    }
 
-    // Animate cyber grid
-    tl.to(".cyber-grid", {
-        opacity: 0.4,
-        rotationX: 30,
-        duration: 1.5,
-        ease: "power2.inOut"
-    }, "-=0.5");
+    // Animate cyber grid (if it exists)
+    if (document.querySelector(".cyber-grid")) {
+        tl.to(".cyber-grid", {
+            opacity: 0.4,
+            rotationX: 30,
+            duration: 1.5,
+            ease: "power2.inOut"
+        }, "-=0.5");
+    }
 
     // Initialize CRT flicker effect
     initCrtFlicker();
 
-    // Initialize glitch elements
-    initGlitchElements();
+    // Initialize glitch elements (if they exist)
+    if (document.querySelector(".glitch-element")) {
+        initGlitchElements();
+    }
 
-    // Initialize data streams
-    initDataStreams();
+    // Initialize data streams (if they exist)
+    if (document.querySelector(".data-stream")) {
+        initDataStreams();
+    }
 
-    // Apply glitch effect to the header logo and company name
-    applyLogoGlitch(false);
+    // Apply glitch effect to the header logo and company name (if they exist)
+    if (document.querySelector(".logo")) {
+        applyLogoGlitch(false);
+    }
 
-    // Initialize about modal
-    initAboutModal();
+    // Initialize about modal (if it exists)
+    if (document.querySelector("#about-modal")) {
+        initAboutModal();
+    }
 
     // Initialize gradient breathing animation
     initGradientAnimation();
@@ -753,41 +783,63 @@ function startReducedMotionAnimations() {
     // Create a simplified timeline
     const tl = gsap.timeline();
 
-    // Simple fade-in for header elements (reduced motion)
-    tl.to(".logo", { opacity: 1, scale: 1, duration: 0.4 }); // Ensure scale is 1
-    tl.to(".company-name", { opacity: 1, duration: 0.4 }, "-=0.2"); // Fade in slightly after logo
+    // Simple fade-in for header elements (if they exist)
+    if (document.querySelector(".logo")) {
+        tl.to(".logo", { opacity: 1, scale: 1, duration: 0.4 }); // Ensure scale is 1
+    }
+    if (document.querySelector(".company-name")) {
+        tl.to(".company-name", { opacity: 1, duration: 0.4 }, "-=0.2"); // Fade in slightly after logo
+    }
 
-    // Simple fade-in for main text container
-    tl.to(".main-text-container", {
-        opacity: 1,
-        duration: 0.5
-    });
+    // Simple fade-in for main text container (if it exists)
+    if (document.querySelector(".main-text-container")) {
+        tl.to(".main-text-container", {
+            opacity: 1,
+            duration: 0.5
+        });
+    }
 
-    tl.to(".glitch-title", {
-        opacity: 1,
-        duration: 0.3
-    }, "-=0.2");
+    // Simple fade-in for title (if it exists)
+    if (document.querySelector(".glitch-title")) {
+        tl.to(".glitch-title", {
+            opacity: 1,
+            duration: 0.3
+        }, "-=0.2");
+    }
 
-    tl.to(".subtitle", {
-        opacity: 1,
-        duration: 0.3
-    }, "-=0.1");
+    // Simple fade-in for subtitle (if it exists)
+    if (document.querySelector(".subtitle")) {
+        tl.to(".subtitle", {
+            opacity: 1,
+            duration: 0.3
+        }, "-=0.1");
+    }
 
-    tl.to(".neon-button", {
-        opacity: 1,
-        duration: 0.3
-    }, "-=0.1");
+    // Simple fade-in for button (if it exists)
+    if (document.querySelector(".neon-button")) {
+        tl.to(".neon-button", {
+            opacity: 1,
+            duration: 0.3
+        }, "-=0.1");
+    }
 
-    tl.to(".cyber-grid", {
-        opacity: 0.4,
-        duration: 0.5
-    }, "-=0.2");
+    // Simple fade-in for cyber grid (if it exists)
+    if (document.querySelector(".cyber-grid")) {
+        tl.to(".cyber-grid", {
+            opacity: 0.4,
+            duration: 0.5
+        }, "-=0.2");
+    }
 
-    // Apply simplified glitch effect to the logo and company name
-    applyLogoGlitch(true);
+    // Apply simplified glitch effect to the logo and company name (if they exist)
+    if (document.querySelector(".logo")) {
+        applyLogoGlitch(true);
+    }
 
-    // Initialize about modal
-    initAboutModal();
+    // Initialize about modal (if it exists)
+    if (document.querySelector("#about-modal")) {
+        initAboutModal();
+    }
 }
 
 /**
@@ -1031,7 +1083,8 @@ function applyTitleGlitch() {
     // RGB timeline starts automatically due to repeat:-1
 
     // If easter egg triggered, also start the persistent subtitle glitch
-    if (typeof easterEggTriggered !== 'undefined' && easterEggTriggered) {
+    // Apply persistent glitch only if easter egg triggered AND subtitle exists
+    if (typeof easterEggTriggered !== 'undefined' && easterEggTriggered && document.querySelector(".subtitle")) {
         applySubtitlePersistentGlitch();
     }
 }

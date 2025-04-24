@@ -10,14 +10,8 @@ let sofiaLogoClicks = 0;
 // Wait for DOM to be fully loaded
 document.addEventListener('DOMContentLoaded', function() {
 
-    // Initialize particles (assuming particles.js is present and needed for splash)
-    if (typeof initParticles === 'function') {
-        initParticles();
-    } else {
-        // If particles.js is not intended for the legal page, this can be removed.
-        // For now, keep the check but maybe log a warning instead of error.
-        console.warn('Particle system initialization function (initParticles) not found. If not needed, remove call from main.js.');
-    }
+    // particles.js initializes itself via its own DOMContentLoaded listener.
+    // No need to call initParticles() from here.
 
     // Initialize animations (splash screen etc.)
     if (typeof initAnimations === 'function') {
