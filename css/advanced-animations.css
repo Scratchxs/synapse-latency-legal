@@ -1,0 +1,291 @@
+/**
+ * Advanced Animations for Synapse: Latency
+ * Cyberpunk-themed advanced animations and effects
+ */
+
+/* Cyberpunk Corner Elements Animation */
+@keyframes cornerPulse {
+    0%, 100% {
+        opacity: 0.7;
+        box-shadow: 0 0 5px rgba(255, 0, 60, 0.3);
+    }
+    50% {
+        opacity: 0.9;
+        box-shadow: 0 0 15px rgba(255, 0, 60, 0.5);
+    }
+}
+
+.cyber-corner {
+    animation: cornerPulse 4s infinite;
+}
+
+.top-left {
+    animation-delay: 0s;
+}
+
+.top-right {
+    animation-delay: 1s;
+}
+
+.bottom-left {
+    animation-delay: 2s;
+}
+
+.bottom-right {
+    animation-delay: 3s;
+}
+
+/* Parallax Elements */
+.parallax-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -3;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.parallax-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.parallax-particle {
+    position: absolute;
+    border-radius: 50%;
+    will-change: transform;
+}
+
+/* Floating Elements Animation */
+.floating-element {
+    position: fixed;
+    background-color: rgba(255, 0, 60, 0.5);
+    box-shadow: 0 0 10px rgba(255, 0, 60, 0.3);
+    z-index: -1;
+    pointer-events: none;
+    will-change: transform;
+}
+
+/* RGB Split Effect */
+.rgb-split-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9997;
+    pointer-events: none;
+    opacity: 0;
+    will-change: opacity;
+}
+
+.rgb-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: multiply;
+    will-change: transform;
+}
+
+.red-layer {
+    background-color: rgba(255, 0, 0, 0.5);
+    transform: translateX(-5px);
+}
+
+.green-layer {
+    background-color: rgba(0, 255, 0, 0.5);
+}
+
+.blue-layer {
+    background-color: rgba(0, 0, 255, 0.5);
+    transform: translateX(5px);
+}
+
+/* Scroll Glitch Effect */
+.scroll-glitch {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: transparent;
+    z-index: 9998;
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    will-change: opacity, background-color;
+}
+
+/* Enhanced Heading Animations */
+h1, h2 {
+    position: relative;
+    overflow: hidden;
+}
+
+h1::after, h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 60, 0.7), transparent);
+    transform: translateX(-100%);
+    transition: transform 0.5s ease;
+}
+
+h1:hover::after, h2:hover::after {
+    transform: translateX(100%);
+}
+
+/* Text Glitch Effect */
+@keyframes textGlitch {
+    0%, 100% {
+        transform: translate(0);
+        text-shadow: 0 0 0 rgba(255, 0, 60, 0);
+    }
+    20% {
+        transform: translate(-2px, 1px);
+        text-shadow: -1px 0 0 rgba(255, 0, 60, 0.7);
+    }
+    40% {
+        transform: translate(2px, -1px);
+        text-shadow: 1px 0 0 rgba(255, 0, 60, 0.7);
+    }
+    60% {
+        transform: translate(-1px, -1px);
+        text-shadow: 0 -1px 0 rgba(255, 0, 60, 0.7);
+    }
+    80% {
+        transform: translate(1px, 1px);
+        text-shadow: 0 1px 0 rgba(255, 0, 60, 0.7);
+    }
+}
+
+.text-glitch {
+    animation: textGlitch 0.3s infinite;
+    animation-play-state: paused;
+}
+
+.text-glitch:hover {
+    animation-play-state: running;
+}
+
+/* Enhanced List Item Animations */
+@keyframes listItemGlow {
+    0%, 100% {
+        text-shadow: 0 0 0 rgba(255, 0, 60, 0);
+    }
+    50% {
+        text-shadow: 0 0 5px rgba(255, 0, 60, 0.7);
+    }
+}
+
+li:hover {
+    animation: listItemGlow 1s infinite;
+}
+
+/* Enhanced Container Animation */
+@keyframes containerBorderGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 0, 60, 0.1);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 0, 60, 0.2);
+    }
+}
+
+.container:hover {
+    animation: containerBorderGlow 2s infinite;
+}
+
+/* Data Stream Animation */
+@keyframes dataStreamGlow {
+    0%, 100% {
+        box-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+    }
+}
+
+.data-stream {
+    animation: dataStreamGlow 2s infinite;
+}
+
+/* Enhanced Smiley Animation */
+@keyframes smileyPulse {
+    0%, 100% {
+        transform: scale(1) rotate(0deg);
+        text-shadow: 0 0 10px var(--highlight-glow);
+    }
+    50% {
+        transform: scale(1.1) rotate(5deg);
+        text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+    }
+}
+
+.smiley {
+    animation: smileyPulse 3s infinite;
+}
+
+.smiley:hover {
+    animation: none;
+    transform: scale(1.2) rotate(10deg);
+    color: #ff003c;
+    text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
+}
+
+/* Enhanced Footer Animation */
+@keyframes footerGlow {
+    0%, 100% {
+        color: var(--accent-color);
+    }
+    50% {
+        color: var(--highlight-color);
+    }
+}
+
+.footer {
+    transition: color 0.3s;
+}
+
+.footer:hover {
+    animation: footerGlow 2s infinite;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .cyber-corner {
+        animation: cornerPulse 6s infinite;
+    }
+    
+    .parallax-particle {
+        opacity: 0.5;
+    }
+}
+
+/* Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+    .cyber-corner,
+    .parallax-particle,
+    .floating-element,
+    .rgb-split-container,
+    .scroll-glitch,
+    h1::after, h2::after,
+    .text-glitch,
+    li:hover,
+    .container:hover,
+    .data-stream,
+    .smiley,
+    .footer {
+        animation: none;
+        transition: none;
+    }
+}
