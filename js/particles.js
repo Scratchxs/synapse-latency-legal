@@ -5,13 +5,12 @@
  */
 
 // Steely grey color palette from source project
+// Use only white particles with varying opacity
 const particleColors = [
-    'rgba(141, 141, 141, 0.7)',   // Medium grey
-    'rgba(141, 141, 141, 0.4)',   // Medium grey (dimmer)
-    'rgba(176, 176, 176, 0.7)',   // Light grey
-    'rgba(176, 176, 176, 0.4)',   // Light grey (dimmer)
     'rgba(255, 255, 255, 0.7)',   // White
-    'rgba(74, 74, 74, 0.5)'       // Dark grey
+    'rgba(255, 255, 255, 0.5)',   // White (dimmer)
+    'rgba(255, 255, 255, 0.3)',   // White (even dimmer)
+    'rgba(255, 255, 255, 0.8)'    // White (brighter)
 ];
 
 class ParticleBackground {
