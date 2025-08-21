@@ -177,6 +177,16 @@ function createFloatingElements() {
  * Create glitch effects that trigger on scroll
  */
 function createScrollBasedGlitches() {
+    // Detect if console is open (console affects viewport dimensions)
+    let lastGlitchTime = 0;
+    const glitchCooldown = 1000; // Minimum 1 second between glitches
+    
+    function isConsoleOpen() {
+        const threshold = 160;
+        return window.outerHeight - window.innerHeight > threshold ||
+               window.outerWidth - window.innerWidth > threshold;
+    }
+    
     // Create scroll-based glitch effect
     ScrollTrigger.create({
         trigger: 'body',
@@ -185,13 +195,25 @@ function createScrollBasedGlitches() {
         onUpdate: (self) => {
             // Trigger glitch effect at certain scroll positions
             const scrollPos = self.progress;
+            const currentTime = Date.now();
             
-            // Create glitch at specific scroll positions or randomly
-            if (scrollPos > 0.25 && scrollPos < 0.255 || 
-                scrollPos > 0.5 && scrollPos < 0.505 || 
-                scrollPos > 0.75 && scrollPos < 0.755 || 
-                Math.random() > 0.995) {
+            // Skip glitch effects if console is open to prevent headaches
+            if (isConsoleOpen()) {
+                return;
+            }
+            
+            // Add cooldown to prevent rapid flickering
+            if (currentTime - lastGlitchTime < glitchCooldown) {
+                return;
+            }
+            
+            // Create glitch at specific scroll positions or randomly (reduced frequency)
+            if (scrollPos > 0.25 && scrollPos < 0.255 ||
+                scrollPos > 0.5 && scrollPos < 0.505 ||
+                scrollPos > 0.75 && scrollPos < 0.755 ||
+                Math.random() > 0.998) { // Reduced from 0.995 to 0.998 for less frequent glitches
                 
+                lastGlitchTime = currentTime;
                 createGlitchEffect();
             }
         }
@@ -317,17 +339,38 @@ function createRGBSplitEffect() {
     document.body.appendChild(rgbContainer);
     
     // Create scroll-triggered effect
+    let lastRgbTime = 0;
+    const rgbCooldown = 500; // Minimum 500ms between RGB effects
+    
+    function isConsoleOpen() {
+        const threshold = 160;
+        return window.outerHeight - window.innerHeight > threshold ||
+               window.outerWidth - window.innerWidth > threshold;
+    }
+    
     ScrollTrigger.create({
         trigger: 'body',
         start: 'top top',
         end: 'bottom bottom',
         onUpdate: (self) => {
+            // Skip RGB effects if console is open to prevent headaches
+            if (isConsoleOpen()) {
+                return;
+            }
+            
             // Trigger RGB split at certain scroll velocities
             const velocity = Math.abs(self.getVelocity() / 1000);
+            const currentTime = Date.now();
             
-            if (velocity > 1) {
-                const intensity = Math.min(velocity / 10, 0.5);
-                const offset = Math.min(velocity * 2, 10);
+            // Add cooldown to prevent rapid flickering
+            if (currentTime - lastRgbTime < rgbCooldown) {
+                return;
+            }
+            
+            if (velocity > 1.5) { // Increased threshold from 1 to 1.5 to reduce sensitivity
+                lastRgbTime = currentTime;
+                const intensity = Math.min(velocity / 15, 0.3); // Reduced max intensity from 0.5 to 0.3
+                const offset = Math.min(velocity * 1.5, 8); // Reduced multiplier and max offset
                 
                 gsap.to(rgbContainer, {
                     opacity: intensity,

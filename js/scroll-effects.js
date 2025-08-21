@@ -86,10 +86,17 @@ function createScrollProgressIndicator() {
         
         progressBar.style.width = `${scrollProgress}%`;
         
-        // Add random glitch effect
-        if (Math.random() > 0.95) {
+        // Add random glitch effect (with console detection)
+        function isConsoleOpen() {
+            const threshold = 160;
+            return window.outerHeight - window.innerHeight > threshold ||
+                   window.outerWidth - window.innerWidth > threshold;
+        }
+        
+        // Skip glitch if console is open, and reduce frequency
+        if (!isConsoleOpen() && Math.random() > 0.98) { // Reduced from 0.95 to 0.98
             gsap.to(glitchOverlay, {
-                opacity: 0.8,
+                opacity: 0.6, // Reduced from 0.8 to 0.6
                 duration: 0.1,
                 onComplete: () => {
                     gsap.to(glitchOverlay, {
