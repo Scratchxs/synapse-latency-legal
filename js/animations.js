@@ -554,49 +554,12 @@ function transitionToMainContent(reducedMotion) {
         clearInterval(parseInt(binaryContainer.dataset.intervalId));
     }
 
-    // Create a glitch transition effect
+    // Create a smooth transition without glitch effects
     if (!reducedMotion) {
-        // Add multiple rapid glitch flashes
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                addGlitchFlash();
-            }, i * 100);
-        }
-        
-        // Add screen tear effect
-        const tear = document.createElement('div');
-        tear.style.position = 'absolute';
-        tear.style.top = '50%';
-        tear.style.left = '0';
-        tear.style.width = '100%';
-        tear.style.height = '2px';
-        tear.style.backgroundColor = '#ffffff';
-        tear.style.boxShadow = '0 0 10px rgba(0, 195, 255, 0.7)';
-        tear.style.zIndex = '20';
-        document.getElementById('splash-screen').appendChild(tear);
-        
-        // Animate the tear
-        gsap.to(tear, {
-            height: '50%',
-            top: '25%',
-            opacity: 0.7,
-            duration: 0.2,
-            ease: "power1.in",
-            onComplete: () => {
-                gsap.to(tear, {
-                    opacity: 0,
-                    duration: 0.1,
-                    onComplete: () => {
-                        if (tear.parentNode) {
-                            tear.parentNode.removeChild(tear);
-                        }
-                        
-                        // Now fade out splash screen
-                        fadeOutSplashScreen(reducedMotion);
-                    }
-                });
-            }
-        });
+        // Directly fade out splash screen for smooth transition
+        setTimeout(() => {
+            fadeOutSplashScreen(reducedMotion);
+        }, 100); // Minimal delay for smooth transition
     } else {
         // Directly fade out for reduced motion
         fadeOutSplashScreen(reducedMotion);
@@ -643,11 +606,8 @@ function fadeOutSplashScreen(reducedMotion) {
             }
             // --- End of initial state setting ---
 
-            // Start fade-in animation for the main container with glitch effect
-            if (!reducedMotion) {
-                // Add a glitch flash before revealing main content
-                addGlitchFlash();
-            }
+            // Start fade-in animation for the main container with smooth transition
+            // Removed glitch flash for smoother transition without white flash
             
             gsap.to("#main-content", {
                 opacity: 1, // Fade in

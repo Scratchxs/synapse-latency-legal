@@ -325,7 +325,7 @@ class SplashScreen {
             ease: AnimationConfig.ease.smooth
         }, "-=0.1");
         
-        // Animate background out with a more sophisticated effect
+        // Animate background out with smooth fade instead of vertical wipe
         // First scale it slightly
         tl.to(this.splashContainer, {
             scale: 1.05,
@@ -333,15 +333,12 @@ class SplashScreen {
             ease: AnimationConfig.ease.strong
         }, "-=0.2");
         
-        // Then wipe it out
+        // Then fade it out smoothly (no more vertical wipe effect)
         tl.to(this.splashContainer, {
-            height: 0,
+            opacity: 0,
             duration: AnimationConfig.accessibility.getDuration(AnimationConfig.duration.slow),
             ease: AnimationConfig.ease.strongInOut,
             onStart: () => {
-                // Change transform origin for the wipe effect
-                gsap.set(this.splashContainer, { transformOrigin: "center top" });
-                
                 // Fade out flash
                 gsap.to(flash, {
                     opacity: 0,
