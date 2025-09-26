@@ -1,6 +1,4 @@
-/**
- * Splash Screen Styles for Synapse: Latency Privacy Policy
- */
+
 
 .splash-screen {
     position: fixed;
@@ -8,7 +6,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Use updated background colors from main.css */
+    
     background-color: var(--bg-color);
     background: linear-gradient(135deg, var(--bg-color) 0%, var(--bg-color-alt) 100%);
     display: flex;
@@ -36,7 +34,7 @@
     height: 120px;
     transform-origin: center center;
     margin-bottom: 20px;
-    /* Use updated highlight glow */
+    
     filter: drop-shadow(0 0 10px var(--highlight-glow));
 }
 
@@ -52,9 +50,9 @@
     display: block;
     margin-bottom: 8px;
     letter-spacing: 1.5px;
-    color: var(--accent-color); /* Updated from source */
-    /* Use updated text shadow from source */
-    text-shadow: 0 0 10px var(--glow-color); /* Updated from source */
+    color: var(--accent-color); 
+    
+    text-shadow: 0 0 10px var(--glow-color); 
     position: relative;
     z-index: 1;
 }
@@ -66,8 +64,8 @@
     font-weight: 500;
     position: relative;
     z-index: 1;
-    color: var(--text-color); /* Updated from source */
-    text-shadow: 0 0 8px var(--glow-color); /* Updated from source */
+    color: var(--text-color); 
+    text-shadow: 0 0 8px var(--glow-color); 
 }
 
 .splash-particles {
@@ -81,7 +79,7 @@
 
 .splash-particle {
     position: absolute;
-    /* Background color is set dynamically in JS based on source */
+    
     border-radius: 50%;
     opacity: 0.6;
     pointer-events: none;
@@ -89,31 +87,31 @@
     transform: translate3d(0, 0, 0);
 }
 
-/* Add a subtle glow effect to the logo */
+
 @keyframes logoGlow {
     0%, 100% {
-        /* Use updated highlight glow */
+        
         filter: drop-shadow(0 0 8px var(--highlight-glow));
     }
     50% {
-        /* Use brighter highlight glow - using glow-color directly */
+        
         filter: drop-shadow(0 0 20px var(--glow-color));
     }
 }
 
-/* Add a subtle pulse effect to the text */
+
 @keyframes textPulse {
     0%, 100% {
-        /* Use updated highlight glow */
+        
         text-shadow: 0 0 8px var(--highlight-glow);
     }
     50% {
-         /* Use brighter highlight glow - using glow-color directly */
+         
         text-shadow: 0 0 15px var(--glow-color);
     }
 }
 
-/* Add a subtle gradient overlay */
+
 .splash-screen::before {
     content: '';
     position: absolute;
@@ -121,13 +119,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    /* Use updated highlight glow and background colors */
-    background: radial-gradient(circle at center, var(--highlight-glow) 0%, rgba(18, 18, 26, 0.3) 100%); /* Keep second color transparent */
+    
+    background: radial-gradient(circle at center, var(--highlight-glow) 0%, rgba(18, 18, 26, 0.3) 100%); 
     pointer-events: none;
     will-change: opacity;
 }
 
-/* Add a subtle vignette effect */
+
 .splash-screen::after {
     content: '';
     position: absolute;
@@ -139,7 +137,7 @@
     pointer-events: none;
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .splash-logo {
         width: 100px;
@@ -154,26 +152,26 @@
         font-size: 1rem;
     }
 }
-/* === Styles copied from synapse-latency-site === */
 
-/* Font Definition from synapse-latency-site */
+
+
 @font-face {
     font-family: 'Pixeloid Sans';
-    src: url('../assets/fonts/PixeloidSans.ttf') format('truetype'); /* Adjusted path */
+    src: url('../assets/fonts/PixeloidSans.ttf') format('truetype'); 
     font-weight: normal;
     font-style: normal;
     font-display: swap;
 }
 
-/* Cyberpunk Glitch Splash Screen Styles from synapse-latency-site */
-/* Ensure #splash-screen ID is used in HTML */
+
+
 #splash-screen {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color, #0a0a0f); /* Use existing or default */
+    background-color: var(--bg-color, #0a0a0f); 
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -191,7 +189,7 @@
     flex-direction: column;
 }
 
-/* Glitch Layers */
+
 .glitch-layer {
     position: absolute;
     top: 0;
@@ -217,61 +215,61 @@
 }
 
 @keyframes glitch-layer-1 {
-    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    10% { transform: translate(-5px, 3px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    20% { transform: translate(5px, -3px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    30% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    40% { transform: translate(3px, 3px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    50% { transform: translate(-3px, -3px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    60% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    70% { transform: translate(-5px, 0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    80% { transform: translate(5px, 0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    90% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
+    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } 
+    10% { transform: translate(-5px, 3px); background-color: rgba(255, 255, 255, 0.05); } 
+    20% { transform: translate(5px, -3px); background-color: rgba(255, 255, 255, 0.05); } 
+    30% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    40% { transform: translate(3px, 3px); background-color: rgba(255, 255, 255, 0.05); } 
+    50% { transform: translate(-3px, -3px); background-color: rgba(255, 255, 255, 0.05); } 
+    60% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    70% { transform: translate(-5px, 0); background-color: rgba(255, 255, 255, 0.05); } 
+    80% { transform: translate(5px, 0); background-color: rgba(255, 255, 255, 0.05); } 
+    90% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
 }
 
 @keyframes glitch-layer-2 {
-    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    15% { transform: translate(7px, -5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    25% { transform: translate(-7px, 5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    35% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    45% { transform: translate(-4px, -4px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    55% { transform: translate(4px, 4px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    65% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    75% { transform: translate(0, -7px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    85% { transform: translate(0, 7px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    95% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
+    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } 
+    15% { transform: translate(7px, -5px); background-color: rgba(255, 255, 255, 0.05); } 
+    25% { transform: translate(-7px, 5px); background-color: rgba(255, 255, 255, 0.05); } 
+    35% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    45% { transform: translate(-4px, -4px); background-color: rgba(255, 255, 255, 0.05); } 
+    55% { transform: translate(4px, 4px); background-color: rgba(255, 255, 255, 0.05); } 
+    65% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    75% { transform: translate(0, -7px); background-color: rgba(255, 255, 255, 0.05); } 
+    85% { transform: translate(0, 7px); background-color: rgba(255, 255, 255, 0.05); } 
+    95% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
 }
 
 @keyframes glitch-layer-3 {
-    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    12% { transform: translate(-10px, 0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    24% { transform: translate(10px, 0); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    36% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    48% { transform: translate(0, 5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    60% { transform: translate(0, -5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    72% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } /* Black */
-    84% { transform: translate(5px, 5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
-    96% { transform: translate(-5px, -5px); background-color: rgba(255, 255, 255, 0.05); } /* White */
+    0%, 100% { transform: translate(0); background-color: rgba(255, 255, 255, 0.05); } 
+    12% { transform: translate(-10px, 0); background-color: rgba(255, 255, 255, 0.05); } 
+    24% { transform: translate(10px, 0); background-color: rgba(255, 255, 255, 0.05); } 
+    36% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    48% { transform: translate(0, 5px); background-color: rgba(255, 255, 255, 0.05); } 
+    60% { transform: translate(0, -5px); background-color: rgba(255, 255, 255, 0.05); } 
+    72% { transform: translate(0); background-color: rgba(0, 0, 0, 0.05); } 
+    84% { transform: translate(5px, 5px); background-color: rgba(255, 255, 255, 0.05); } 
+    96% { transform: translate(-5px, -5px); background-color: rgba(255, 255, 255, 0.05); } 
 }
 
-/* Logo Glitch Effect */
+
 .logo-glitch-wrapper {
     position: relative;
-    width: 120px; /* Match existing .splash-logo size */
-    height: 120px; /* Match existing .splash-logo size */
-    margin-bottom: 20px; /* Match existing .splash-logo margin */
+    width: 120px; 
+    height: 120px; 
+    margin-bottom: 20px; 
 }
 
-/* Overwrite existing .splash-logo styles for glitch effect */
-#splash-screen .splash-logo { /* Specificity increased */
+
+#splash-screen .splash-logo { 
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
     filter: drop-shadow(0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7)));
-    margin-bottom: 0; /* Override original margin */
-    transform-origin: initial; /* Override original */
+    margin-bottom: 0; 
+    transform-origin: initial; 
 }
 
 .splash-logo-glitch {
@@ -284,7 +282,7 @@
 }
 
 .splash-logo-glitch-1 {
-    filter: drop-shadow(0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7))); /* Changed to white */
+    filter: drop-shadow(0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7))); 
     animation: logo-glitch-1 var(--glitch-duration, 4s) infinite;
 }
 
@@ -321,15 +319,15 @@
     90%, 93% { transform: translate(0, 3px); opacity: 0; }
 }
 
-/* Text Glitch Effect */
+
 .text-glitch-wrapper {
     position: relative;
-    height: 3rem; /* Adjust based on font size */
+    height: 3rem; 
     margin-bottom: 0.5rem;
 }
 
-/* Overwrite existing .logo-text-primary styles */
-#splash-screen .logo-text-primary { /* Specificity increased */
+
+#splash-screen .logo-text-primary { 
     font-size: 2.5rem;
     color: var(--text-color, #e0e0e0);
     text-shadow: 0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7));
@@ -342,11 +340,11 @@
     display: block;
     margin-bottom: 0;
     font-weight: normal;
-    z-index: initial; /* Override original */
+    z-index: initial; 
 }
 
-/* Overwrite existing .logo-text-secondary styles */
-#splash-screen .logo-text-secondary { /* Specificity increased */
+
+#splash-screen .logo-text-secondary { 
     font-size: 2rem;
     color: var(--text-color, #e0e0e0);
     text-shadow: 0 0 8px var(--neon-grey-light, rgba(180, 180, 180, 0.7));
@@ -357,7 +355,7 @@
     transform: translateX(-50%);
     white-space: nowrap;
     font-weight: normal;
-    z-index: initial; /* Override original */
+    z-index: initial; 
 }
 
 .splash-text-glitch {
@@ -369,7 +367,7 @@
 }
 
 .splash-text-glitch-1 {
-    text-shadow: 0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7)); /* Changed to white */
+    text-shadow: 0 0 10px var(--neon-white, rgba(255, 255, 255, 0.7)); 
     animation: text-glitch-1 var(--glitch-duration, 4s) infinite;
 }
 
@@ -406,7 +404,7 @@
     91%, 93% { transform: translate(-50%, 3px); opacity: 0; }
 }
 
-/* Digital Noise */
+
 .digital-noise {
     position: absolute;
     top: 0;
@@ -420,7 +418,7 @@
     mix-blend-mode: overlay;
 }
 
-/* Scan Lines */
+
 .splash-scanlines {
     position: absolute;
     top: 0;
@@ -438,7 +436,7 @@
     pointer-events: none;
 }
 
-/* Loading Bar */
+
 .cyber-loading-bar {
     position: absolute;
     bottom: 20%;
@@ -455,11 +453,11 @@
 .loading-progress {
     height: 100%;
     width: 0%;
-    /* Define neon colors or use existing vars - Changed to white/grey */
+    
     --neon-white: rgba(255, 255, 255, 0.7);
     --neon-grey-light: rgba(180, 180, 180, 0.7);
     --neon-grey: rgba(120, 120, 120, 0.7);
-    background: linear-gradient(90deg, var(--neon-white), var(--neon-grey-light), var(--neon-grey)); /* Changed to white/grey gradient */
+    background: linear-gradient(90deg, var(--neon-white), var(--neon-grey-light), var(--neon-grey)); 
     background-size: 200% 100%;
     animation: loading-progress 2s ease-in-out forwards, gradient-shift 2s linear infinite;
 }
@@ -475,7 +473,7 @@
     100% { background-position: 0% 50%; }
 }
 
-/* Binary Data */
+
 .binary-data {
     position: absolute;
     bottom: 15%;
@@ -483,9 +481,9 @@
     transform: translateX(-50%);
     font-family: monospace;
     font-size: 0.7rem;
-    color: var(--neon-white, rgba(255, 255, 255, 0.7)); /* Changed to white */
+    color: var(--neon-white, rgba(255, 255, 255, 0.7)); 
     opacity: 0.7;
-    text-shadow: 0 0 5px var(--neon-white, rgba(255, 255, 255, 0.7)); /* Changed to white */
+    text-shadow: 0 0 5px var(--neon-white, rgba(255, 255, 255, 0.7)); 
     z-index: 4;
     white-space: nowrap;
     overflow: hidden;
@@ -493,7 +491,7 @@
     text-align: center;
 }
 
-/* Particles - .splash-particles container and .splash-particle styles already exist */
-/* Ensure the particle creation JS uses the correct class '.splash-particle' */
 
-/* === End of styles copied from synapse-latency-site === */
+
+
+

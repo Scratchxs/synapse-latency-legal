@@ -1,9 +1,6 @@
-/**
- * Enhanced Cyberpunk Effects for Synapse: Latency
- * Additional visual effects and animations to enhance the cyberpunk theme
- */
 
-/* Cyberpunk Corner Elements */
+
+
 .cyber-corner {
     position: fixed;
     width: 50px;
@@ -45,7 +42,7 @@
     box-shadow: 5px 5px 10px rgba(255, 0, 60, 0.3) inset;
 }
 
-/* Scroll Progress Indicator */
+
 .scroll-progress-container {
     position: fixed;
     top: 0;
@@ -74,7 +71,7 @@
     opacity: 0;
 }
 
-/* Dynamic Grid */
+
 .dynamic-grid {
     position: fixed;
     top: 0;
@@ -89,7 +86,7 @@
     opacity: 0.15;
 }
 
-/* Data Stream Effects */
+
 .data-stream-container {
     position: fixed;
     top: 0;
@@ -120,7 +117,7 @@
     box-shadow: 0 0 5px rgba(255,0,60,0.7);
 }
 
-/* Enhanced Text Effects */
+
 .text-effect-ready {
     transition: color 0.3s, text-shadow 0.3s;
 }
@@ -130,7 +127,7 @@ h1:hover, h2:hover {
     text-shadow: 0 0 8px var(--highlight-glow);
 }
 
-/* Enhanced Link Effects */
+
 a {
     position: relative;
     transition: color 0.3s, text-shadow 0.3s;
@@ -159,7 +156,7 @@ a:hover::before {
     transform-origin: left;
 }
 
-/* Enhanced Scrollbar */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -180,7 +177,7 @@ a:hover::before {
     box-shadow: 0 0 10px rgba(255, 0, 60, 0.7);
 }
 
-/* Enhanced Container Effects */
+
 .container {
     position: relative;
     overflow: hidden;
@@ -212,7 +209,7 @@ a:hover::before {
     opacity: 0.7;
 }
 
-/* Enhanced List Items */
+
 li {
     position: relative;
     transition: transform 0.3s;
@@ -231,7 +228,7 @@ li:hover::before {
     transform: scale(1.2);
 }
 
-/* Enhanced Bottom Gradient */
+
 .bottom-gradient {
     position: fixed;
     bottom: 0;
@@ -245,7 +242,7 @@ li:hover::before {
     transition: opacity 0.3s, height 0.3s;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .cyber-corner {
         width: 30px;
@@ -257,7 +254,7 @@ li:hover::before {
     }
 }
 
-/* Reduced Motion */
+
 @media (prefers-reduced-motion: reduce) {
     .cyber-corner,
     .scroll-progress-bar,

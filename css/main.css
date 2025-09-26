@@ -1,7 +1,4 @@
-/**
- * Main Styles for Synapse: Latency Privacy Policy
- * Dark Steely Gray theme
- */
+
 
 @font-face {
     font-family: 'PixeloidSans';
@@ -20,11 +17,11 @@
     --highlight-color: #b0b0b0;
     --dark-accent: #2d2d30;
     --medium-accent: #3e3e42;
-    --neon-blue: rgba(0, 195, 255, 0.7); /* Added from source */
-    --neon-purple: rgba(128, 0, 255, 0.7); /* Added from source */
-    --grid-color: rgba(50, 50, 70, 0.15); /* Corrected from source */
-    --red-accent: #5b0909; /* Keep this, maps to source gradient red */
-    --highlight-glow: var(--glow-color); /* Keep this, maps to source glow */
+    --neon-blue: rgba(0, 195, 255, 0.7); 
+    --neon-purple: rgba(128, 0, 255, 0.7); 
+    --grid-color: rgba(50, 50, 70, 0.15); 
+    --red-accent: #5b0909; 
+    --highlight-glow: var(--glow-color); 
 }
 
 * {
@@ -34,9 +31,9 @@
 }
 
 body {
-    font-family: 'PixeloidSans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Added PixeloidSans */
-    background-color: var(--bg-color); /* Updated */
-    color: var(--text-color); /* Updated */
+    font-family: 'PixeloidSans', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background-color: var(--bg-color); 
+    color: var(--text-color); 
     line-height: 1.6;
     margin: 0;
     padding: 0;
@@ -45,13 +42,13 @@ body {
     transition: background-color 0.3s ease;
 }
 
-/* Hide content until page is fully loaded */
+
 html.loading .container {
     opacity: 0;
     visibility: hidden;
 }
 
-/* Ensure content is visible when loading class is removed */
+
 html:not(.loading) .container {
     opacity: 1;
     visibility: visible;
@@ -62,18 +59,18 @@ html:not(.loading) .container {
     max-width: 800px;
     margin: 2rem auto;
     padding: 2rem;
-    background-color: rgba(18, 18, 26, 0.9); /* Updated --bg-color-alt (#12121a) with 90% opacity */
+    background-color: rgba(18, 18, 26, 0.9); 
     border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(141, 141, 141, 0.1); /* Adjusted shadow using accent-color base */
+    box-shadow: 0 4px 20px rgba(141, 141, 141, 0.1); 
     position: relative;
     overflow: hidden;
     transition: all 0.3s ease;
-    opacity: 0; /* Hide content initially */
-    visibility: hidden; /* Ensure it's not visible or interactive */
-    z-index: 10; /* Ensure container is above the gradient */
+    opacity: 0; 
+    visibility: hidden; 
+    z-index: 10; 
 }
 
-/* Add a subtle glow effect to the container */
+
 .container::before {
     content: '';
     position: absolute;
@@ -81,11 +78,11 @@ html:not(.loading) .container {
     left: 0;
     width: 100%;
     height: 5px;
-    background: linear-gradient(90deg, var(--accent-color-alt), var(--accent-color), var(--highlight-color)); /* Updated gradient */
+    background: linear-gradient(90deg, var(--accent-color-alt), var(--accent-color), var(--highlight-color)); 
     z-index: 1;
 }
 
-/* Add a subtle pattern overlay */
+
 .container::after {
     content: '';
     position: absolute;
@@ -93,23 +90,23 @@ html:not(.loading) .container {
     left: 0;
     width: 100%;
     height: 100%;
-    /* Updated grid color and opacity */
+    
     background-image: linear-gradient(var(--grid-color) 1px, transparent 1px), linear-gradient(to right, var(--grid-color) 1px, transparent 1px);
     background-size: 20px 20px;
     pointer-events: none;
     z-index: -1;
-    opacity: 0.5; /* Make grid more subtle */
+    opacity: 0.5; 
 }
 
 h1 {
-    color: var(--highlight-color); /* Updated */
+    color: var(--highlight-color); 
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 1rem;
     padding-bottom: 1rem;
-    border-bottom: 2px solid var(--accent-color-alt); /* Updated */
+    border-bottom: 2px solid var(--accent-color-alt); 
     position: relative;
-    text-shadow: 0 0 10px var(--highlight-glow); /* Updated */
+    text-shadow: 0 0 10px var(--highlight-glow); 
 }
 
 h1::after {
@@ -120,15 +117,15 @@ h1::after {
     transform: translateX(-50%);
     width: 100px;
     height: 2px;
-    background-color: var(--highlight-color); /* Updated */
+    background-color: var(--highlight-color); 
 }
 
 h2 {
-    color: var(--accent-color); /* Updated */
+    color: var(--accent-color); 
     margin-top: 2rem;
     margin-bottom: 1rem;
     padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--accent-color-alt); /* Updated */
+    border-bottom: 1px solid var(--accent-color-alt); 
     font-size: 1.5rem;
     position: relative;
 }
@@ -140,18 +137,18 @@ h2::before {
     top: 0.5rem;
     width: 5px;
     height: 1rem;
-    background-color: var(--accent-color); /* Updated */
+    background-color: var(--accent-color); 
     border-radius: 2px;
 }
 
 p {
     margin-bottom: 1rem;
-    color: var(--text-color); /* Updated */
+    color: var(--text-color); 
     transition: color 0.3s ease;
 }
 
 p em {
-    color: var(--accent-color); /* Updated */
+    color: var(--accent-color); 
     font-style: italic;
     display: block;
     text-align: center;
@@ -170,31 +167,31 @@ li {
 }
 
 li::before {
-    content: '>'; /* Changed bullet style */
-    color: var(--highlight-color); /* Updated */
+    content: '>'; 
+    color: var(--highlight-color); 
     position: absolute;
     left: 0;
     font-size: 1.2rem;
 }
 
 strong {
-    color: var(--highlight-color); /* Updated */
+    color: var(--highlight-color); 
     font-weight: bold;
 }
 
 a {
-    color: var(--highlight-color); /* Updated */
+    color: var(--highlight-color); 
     text-decoration: none;
     position: relative;
     transition: all 0.3s ease;
 }
 
 a:hover {
-    color: var(--text-color); /* Updated */
+    color: var(--text-color); 
     text-decoration: none;
 }
 
-/* Underline effect for links */
+
 a::after {
     content: '';
     position: absolute;
@@ -202,7 +199,7 @@ a::after {
     height: 1px;
     bottom: -2px;
     left: 0;
-    background-color: var(--highlight-color); /* Updated */
+    background-color: var(--highlight-color); 
     transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease;
@@ -217,9 +214,9 @@ a:hover::after {
     text-align: center;
     margin-top: 3rem;
     padding-top: 1.5rem;
-    border-top: 1px solid var(--accent-color-alt); /* Updated */
+    border-top: 1px solid var(--accent-color-alt); 
     font-style: italic;
-    color: var(--accent-color); /* Updated */
+    color: var(--accent-color); 
     position: relative;
 }
 
@@ -228,36 +225,36 @@ a:hover::after {
     text-align: center;
     font-size: 2rem;
     margin-top: 1.5rem;
-    color: var(--highlight-color); /* Updated */
-    text-shadow: 0 0 10px var(--highlight-glow); /* Updated */
+    color: var(--highlight-color); 
+    text-shadow: 0 0 10px var(--highlight-glow); 
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .smiley:hover {
-    color: var(--text-color); /* Updated */
+    color: var(--text-color); 
     transform: scale(1.2) rotate(10deg);
 }
 
-/* Scrollbar styling */
+
 ::-webkit-scrollbar {
     width: 10px;
 }
 
 ::-webkit-scrollbar-track {
-    background: var(--bg-color); /* Updated */
+    background: var(--bg-color); 
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--accent-color-alt); /* Updated */
+    background: var(--accent-color-alt); 
     border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-color); /* Updated */
+    background: var(--accent-color); 
 }
 
-/* Responsive adjustments */
+
 @media (max-width: 768px) {
     .container {
         margin: 1rem;
@@ -273,19 +270,19 @@ a:hover::after {
     }
 }
 
-/* Selection styling */
+
 ::selection {
-    background-color: var(--highlight-color); /* Updated */
-    color: var(--bg-color); /* Updated */
+    background-color: var(--highlight-color); 
+    color: var(--bg-color); 
 }
 
-/* Animation keyframes */
+
 @keyframes glow {
     0%, 100% {
-        box-shadow: 0 0 10px var(--highlight-glow); /* Use highlight glow */
+        box-shadow: 0 0 10px var(--highlight-glow); 
     }
     50% {
-        box-shadow: 0 0 20px rgba(176, 176, 176, 0.5); /* Brighter highlight glow */
+        box-shadow: 0 0 20px rgba(176, 176, 176, 0.5); 
     }
 }
 
@@ -298,28 +295,28 @@ a:hover::after {
     }
 }
 
-/* Add a subtle floating animation to the smiley */
+
 .smiley {
     animation: float 3s ease-in-out infinite;
 }
 
-/* Add a subtle glow animation to the container on hover */
+
 .container:hover {
     animation: glow 3s infinite;
 }
-/* Added bottom gradient */
+
 .bottom-gradient {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 30%; /* Covers the bottom 30% of the viewport */
-    background: linear-gradient(to top, #5b0909 0%, rgba(91, 9, 9, 0) 100%); /* Red to transparent */
-    z-index: 1; /* Lower z-index to be behind container */
-    pointer-events: none; /* Make sure it doesn't interfere with clicks */
-    opacity: 0.6; /* Adjust opacity as needed */
+    height: 30%; 
+    background: linear-gradient(to top, #5b0909 0%, rgba(91, 9, 9, 0) 100%); 
+    z-index: 1; 
+    pointer-events: none; 
+    opacity: 0.6; 
 }
-/* Custom Cursor Effects from Source Project */
+
 .cursor-trail {
     position: fixed;
     width: 20px;
@@ -357,7 +354,7 @@ a:hover::after {
     pointer-events: none;
     z-index: 9998;
 }
-/* QOL: Subtle Glitch Effect on Header Hover */
+
 @keyframes subtleGlitch {
     0% { transform: translate(0, 0); }
     25% { transform: translate(-1px, 1px); color: var(--highlight-color); }
@@ -367,37 +364,36 @@ a:hover::after {
 }
 
 h2 {
-    /* Add transition for smoother effect entry/exit */
+    
     transition: color 0.2s ease;
 }
 
 h2:hover {
-    /* Apply the glitch animation on hover */
+    
     animation: subtleGlitch 0.2s linear 1;
-    color: var(--highlight-color); /* Ensure color changes on hover */
+    color: var(--highlight-color); 
 }
-/* QOL: Animated List Bullets */
+
 @keyframes bulletFadeIn {
     from { opacity: 0; transform: translateX(-5px); }
     to { opacity: 1; transform: translateX(0); }
 }
 
 li::before {
-    /* Apply fade-in animation */
+    
     animation: bulletFadeIn 0.5s ease-out forwards;
-    opacity: 0; /* Start hidden */
+    opacity: 0; 
 }
 
-/* Optional: Add slight delay based on list item index if needed via JS,
-   but a simple CSS animation is often sufficient */
-/* QOL: Scrollbar Enhancement */
+
+
 ::-webkit-scrollbar-thumb {
-    /* Add transition for smooth hover effect */
+    
     transition: background-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--accent-color); /* Keep existing hover color */
-    /* Add subtle glow using highlight-glow variable */
+    background: var(--accent-color); 
+    
     box-shadow: 0 0 8px var(--highlight-glow);
 }

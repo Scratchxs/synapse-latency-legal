@@ -1,9 +1,6 @@
-/**
- * Advanced Animations for Synapse: Latency
- * Cyberpunk-themed advanced animations and effects
- */
 
-/* Cyberpunk Corner Elements Animation */
+
+
 @keyframes cornerPulse {
     0%, 100% {
         opacity: 0.7;
@@ -35,7 +32,7 @@
     animation-delay: 3s;
 }
 
-/* Parallax Elements */
+
 .parallax-container {
     position: fixed;
     top: 0;
@@ -61,7 +58,7 @@
     will-change: transform;
 }
 
-/* Floating Elements Animation */
+
 .floating-element {
     position: fixed;
     background-color: rgba(255, 0, 60, 0.5);
@@ -71,7 +68,7 @@
     will-change: transform;
 }
 
-/* RGB Split Effect */
+
 .rgb-split-container {
     position: fixed;
     top: 0;
@@ -108,7 +105,7 @@
     transform: translateX(5px);
 }
 
-/* Scroll Glitch Effect */
+
 .scroll-glitch {
     position: fixed;
     top: 0;
@@ -122,7 +119,7 @@
     will-change: opacity, background-color;
 }
 
-/* Enhanced Heading Animations */
+
 h1, h2 {
     position: relative;
     overflow: hidden;
@@ -144,7 +141,7 @@ h1:hover::after, h2:hover::after {
     transform: translateX(100%);
 }
 
-/* Text Glitch Effect */
+
 @keyframes textGlitch {
     0%, 100% {
         transform: translate(0);
@@ -177,7 +174,7 @@ h1:hover::after, h2:hover::after {
     animation-play-state: running;
 }
 
-/* Enhanced List Item Animations */
+
 @keyframes listItemGlow {
     0%, 100% {
         text-shadow: 0 0 0 rgba(255, 0, 60, 0);
@@ -191,7 +188,7 @@ li:hover {
     animation: listItemGlow 1s infinite;
 }
 
-/* Enhanced Container Animation */
+
 @keyframes containerBorderGlow {
     0%, 100% {
         box-shadow: 0 0 10px rgba(255, 0, 60, 0.1);
@@ -205,7 +202,7 @@ li:hover {
     animation: containerBorderGlow 2s infinite;
 }
 
-/* Data Stream Animation */
+
 @keyframes dataStreamGlow {
     0%, 100% {
         box-shadow: 0 0 8px rgba(255, 0, 60, 0.5);
@@ -219,7 +216,7 @@ li:hover {
     animation: dataStreamGlow 2s infinite;
 }
 
-/* Enhanced Smiley Animation */
+
 @keyframes smileyPulse {
     0%, 100% {
         transform: scale(1) rotate(0deg);
@@ -242,7 +239,7 @@ li:hover {
     text-shadow: 0 0 15px rgba(255, 0, 60, 0.7);
 }
 
-/* Enhanced Footer Animation */
+
 @keyframes footerGlow {
     0%, 100% {
         color: var(--accent-color);
@@ -260,7 +257,7 @@ li:hover {
     animation: footerGlow 2s infinite;
 }
 
-/* Media Queries */
+
 @media (max-width: 768px) {
     .cyber-corner {
         animation: cornerPulse 6s infinite;
@@ -271,7 +268,7 @@ li:hover {
     }
 }
 
-/* Reduced Motion */
+
 @media (prefers-reduced-motion: reduce) {
     .cyber-corner,
     .parallax-particle,

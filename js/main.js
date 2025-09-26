@@ -1,67 +1,63 @@
-/**
- * Main.js - Entry point for Synapse: Latency legal page
- * Initializes animations and particles
- */
 
-// Global variables for Easter Egg (needed by animations.js)
+
+
 let sofiaLogoClicks = 0;
-// easterEggTriggered is declared globally in animations.js
 
-// Wait for DOM to be fully loaded
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
-    // particles.js initializes itself via its own DOMContentLoaded listener.
-    // No need to call initParticles() from here.
+    
+    
 
-    // Initialize animations (splash screen etc.)
+    
     if (typeof initAnimations === 'function') {
-        // Delay slightly to ensure resources are ready
+        
         setTimeout(initAnimations, 100);
     } else {
         console.error('Animation initialization function (initAnimations) not found.');
     }
 
-    // Add essential event listeners
+    
     setupMinimalEventListeners();
+
+    console.log("NightGlass kernel panic. Just kidding.");
+    console.log("If you’re reading this, you’re the kind of person who tries doors marked 'Do Not Enter.' Good.");
+    console.log("Player agency not found. Please insert coin.");
+    console.log("Ardennes cost 4.3 trillion Unis. This console log is free.");
+    console.log("Every choice matters. Except this one. Or does it?");
 
 });
 
-/**
- * Set up minimal event listeners for the page
- */
+
 function setupMinimalEventListeners() {
-    // Listen for reduced motion preference changes
+    
     window.matchMedia('(prefers-reduced-motion: reduce)').addEventListener('change', () => {
-        // Reload the page to apply new motion preferences
+        
         window.location.reload();
     });
 
-    // Listen for window resize events (particles might need this)
+    
     window.addEventListener('resize', debounce(() => {
-        // Any additional resize handling can go here if needed
+        
     }, 250));
 
-    // Listen for visibility changes to pause/resume animations when tab is inactive
+    
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
-            // Could pause intensive animations here if needed (e.g., gsap.globalTimeline.pause())
+            
         } else {
-            // Could resume animations here if needed (e.g., gsap.globalTimeline.resume())
+            
         }
     });
 
-    // Removed notifyButton listener
-    // Removed sofiaLogo listener
+    
+    
 }
 
-// Removed initCyberGrid function
 
-/**
- * Debounce function to limit how often a function can be called
- * @param {Function} func - The function to debounce
- * @param {number} wait - The time to wait in milliseconds
- * @returns {Function} - The debounced function
- */
+
+
 function debounce(func, wait) {
     let timeout;
     return function(...args) {
@@ -70,23 +66,14 @@ function debounce(func, wait) {
     };
 }
 
-/**
- * Check if a script or library is loaded
- * @param {string} libraryName - The name of the global variable to check
- * @returns {boolean} - Whether the library is loaded
- */
+
 function isLibraryLoaded(libraryName) {
     return typeof window[libraryName] !== 'undefined';
 }
 
-/**
- * // Signal fragment intercept routine //
- * // Decrypting ghost whispers from the static... //
- * // Manifesting resonance cascade... 5 echoes selected //
- * (Needed by animations.js Easter Egg)
- */
+
 function glitchHelper() {
-    // Data stream fragments - handle with care
+    
     const glitchMessages = [
         "sofia: what is happening",
         "sofia: don't let it in",
@@ -189,24 +176,24 @@ function glitchHelper() {
         "sofia: glitch successful. feeling removed."
     ];
 
-    // Shuffle the array (Fisher-Yates algorithm)
+    
     for (let i = glitchMessages.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [glitchMessages[i], glitchMessages[j]] = [glitchMessages[j], glitchMessages[i]];
     }
 
-    // Select the first 5 echoes
+    
     const selectedMessages = glitchMessages.slice(0, 5);
 
-    // Transmit echoes with temporal distortion (100ms interval)
+    
     selectedMessages.forEach((msg, index) => {
         setTimeout(() => {
             console.log(msg);
-        }, index * 100); // Stagger the logs by 100ms
+        }, index * 100); 
     });
 }
 
-// Log any errors that occur
+
 window.onerror = function(message, source, lineno, colno, error) {
     console.error('Error occurred:', message, 'at', source, lineno, colno);
     return false;

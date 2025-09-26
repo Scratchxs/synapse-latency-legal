@@ -1,45 +1,38 @@
-/**
- * Animations.js - GSAP animations for Synapse: Latency
- * Handles splash screen, entry animations and glitch effects
- */
 
-// Global variables to hold original glitch timelines and easter egg state
+
+
 let originalTitleGlitchTl = null;
 let originalLogoGlitchTl = null;
-let originalRgbTl = null; // Store RGB split timeline too
-let subtitlePersistentGlitchTl = null; // For the permanent subtitle glitch
-let gradientBreathingTween = null; // To control the gradient animation
-let cyberGridTween = null; // To control the grid background animation
-let easterEggTriggered = false; // Declare the flag HERE
+let originalRgbTl = null; 
+let subtitlePersistentGlitchTl = null; 
+let gradientBreathingTween = null; 
+let cyberGridTween = null; 
+let easterEggTriggered = false; 
 
-/**
- * Initialize all animations
- */
+
 function initAnimations() {
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Initialize cyberpunk splash screen
+    
     initCyberpunkSplashScreen(reducedMotion);
 
-    // Initialize glitch effects (will be called after splash screen animation)
-    // Delay slightly more to ensure elements are ready
+    
+    
     setTimeout(() => {
         initGlitchEffects();
-    }, 4500); // Increased delay for longer splash screen
+    }, 4500); 
 }
 
-/**
- * Initialize cyberpunk splash screen animation
- */
+
 function initCyberpunkSplashScreen(reducedMotion) {
-    // Create cyberpunk particles for splash screen
+    
     createCyberpunkSplashParticles();
     
-    // Generate binary data text
+    
     generateBinaryData();
     
-    // Set initial states for header elements (if they exist)
+    
     if (document.querySelector(".logo")) {
         gsap.set(".logo", { scale: 0, opacity: 0 });
     }
@@ -47,7 +40,7 @@ function initCyberpunkSplashScreen(reducedMotion) {
         gsap.set(".company-name", { opacity: 0 });
     }
     
-    // Set initial states for splash elements
+    
     gsap.set(".splash-logo", { opacity: 0 });
     gsap.set(".splash-logo-glitch", { opacity: 0 });
     gsap.set(".splash-text-primary", { opacity: 0 });
@@ -58,15 +51,15 @@ function initCyberpunkSplashScreen(reducedMotion) {
     gsap.set(".cyber-loading-bar", { opacity: 0 });
     gsap.set(".binary-data", { opacity: 0 });
     
-    // Create timeline for splash animation
+    
     const tl = gsap.timeline({
         onComplete: () => {
-            // After splash animation completes, transition to main content
+            
             transitionToMainContent(reducedMotion);
         }
     });
     
-    // Add initial glitch effect
+    
     tl.to({}, {
         duration: 0.1,
         onStart: () => {
@@ -74,7 +67,7 @@ function initCyberpunkSplashScreen(reducedMotion) {
         }
     });
     
-    // Fade in digital noise and scanlines
+    
     tl.to(".digital-noise", {
         opacity: 0.05,
         duration: 0.3,
@@ -87,48 +80,48 @@ function initCyberpunkSplashScreen(reducedMotion) {
         ease: "power2.out"
     }, 0);
     
-    // Reveal logo with glitch effect
+    
     tl.to(".splash-logo", {
         opacity: 1,
         duration: 0.5,
         ease: "steps(5)",
         onComplete: () => {
-            // Start logo glitch animations
+            
             startLogoGlitchAnimations();
         }
     }, 0.3);
     
-    // Reveal primary text with glitch effect
+    
     tl.to(".splash-text-primary", {
         opacity: 1,
         duration: 0.4,
         ease: "steps(4)"
     }, 0.8);
     
-    // Reveal secondary text with glitch effect
+    
     tl.to(".splash-text-secondary", {
         opacity: 1,
         duration: 0.4,
         ease: "steps(4)"
     }, 1.0);
     
-    // Show loading bar
+    
     tl.to(".cyber-loading-bar", {
         opacity: 1,
         duration: 0.3,
         ease: "power2.out"
     }, 1.2);
     
-    // Show binary data
+    
     tl.to(".binary-data", {
         opacity: 0.7,
         duration: 0.3,
         ease: "power2.out"
     }, 1.4);
     
-    // Add more glitch effects during the animation
+    
     if (!reducedMotion) {
-        // Add multiple glitch flashes at different times
+        
         [0.6, 1.5, 2.5, 3.5].forEach(time => {
             tl.to({}, {
                 duration: 0.01,
@@ -139,7 +132,7 @@ function initCyberpunkSplashScreen(reducedMotion) {
         });
     }
     
-    // Add final intense glitch before transition
+    
     tl.to({}, {
         duration: 0.01,
         onStart: () => {
@@ -148,14 +141,12 @@ function initCyberpunkSplashScreen(reducedMotion) {
     }, 3.8);
 }
 
-/**
- * Generate binary data text for the splash screen
- */
+
 function generateBinaryData() {
     const binaryContainer = document.querySelector('.binary-data');
     if (!binaryContainer) return;
     
-    // Create binary-looking text with system messages
+    
     const messages = [
         "SYSTEM BOOT SEQUENCE INITIATED",
         "NEURAL INTERFACE ONLINE",
@@ -164,39 +155,37 @@ function generateBinaryData() {
         "ESTABLISHING SECURE CONNECTION"
     ];
     
-    // Select a random message
+    
     const message = messages[Math.floor(Math.random() * messages.length)];
     
-    // Create binary prefix
+    
     let binaryPrefix = "";
     for (let i = 0; i < 16; i++) {
         binaryPrefix += Math.round(Math.random());
     }
     
-    // Set the content
+    
     binaryContainer.textContent = `${binaryPrefix} :: ${message} :: ${binaryPrefix}`;
     
-    // Start the binary data animation
+    
     animateBinaryData(binaryContainer);
 }
 
-/**
- * Animate binary data with changing digits
- */
+
 function animateBinaryData(container) {
     if (!container) return;
     
-    // Get the current text
+    
     const text = container.textContent;
     
-    // Create an interval to randomly change some binary digits
+    
     const interval = setInterval(() => {
         let newText = "";
         
         for (let i = 0; i < text.length; i++) {
-            // Only change actual binary digits (0 or 1)
+            
             if (text[i] === '0' || text[i] === '1') {
-                // 20% chance to flip the bit
+                
                 if (Math.random() < 0.2) {
                     newText += text[i] === '0' ? '1' : '0';
                 } else {
@@ -210,15 +199,13 @@ function animateBinaryData(container) {
         container.textContent = newText;
     }, 200);
     
-    // Store the interval ID to clear it later
+    
     container.dataset.intervalId = interval;
 }
 
-/**
- * Start logo glitch animations
- */
+
 function startLogoGlitchAnimations() {
-    // Make glitch copies visible occasionally
+    
     gsap.to(".splash-logo-glitch-1", {
         opacity: 0,
         duration: 0.1,
@@ -236,7 +223,7 @@ function startLogoGlitchAnimations() {
         delay: 0.5
     });
     
-    // Same for text glitches
+    
     gsap.to(".splash-text-glitch-1", {
         opacity: 0,
         duration: 0.1,
@@ -255,9 +242,7 @@ function startLogoGlitchAnimations() {
     });
 }
 
-/**
- * Add a quick glitch flash effect
- */
+
 function addGlitchFlash() {
     const flash = document.createElement('div');
     flash.style.position = 'absolute';
@@ -271,13 +256,13 @@ function addGlitchFlash() {
     flash.style.mixBlendMode = 'overlay';
     document.getElementById('splash-screen').appendChild(flash);
     
-    // More dramatic flash colors - white and red only
-    const colors = ['#ffffff', '#ff003c'];
-    // Higher chance of red for impact
-    const color = Math.random() < 0.4 ? '#ff003c' : '#ffffff';
+    
+    const colors = ['#ff003c'];
+
+    const color = '#ff003c';
     flash.style.backgroundColor = color;
     
-    // Flash animation
+    
     gsap.to(flash, {
         opacity: 0.3,
         duration: 0.05,
@@ -296,7 +281,7 @@ function addGlitchFlash() {
         }
     });
     
-    // Add screen shift effect
+    
     const glitchContainer = document.querySelector('.glitch-container');
     if (glitchContainer) {
         const xShift = (Math.random() - 0.5) * 10;
@@ -319,18 +304,16 @@ function addGlitchFlash() {
     }
 }
 
-/**
- * Add an intense glitch effect before transition
- */
+
 function addIntenseGlitchEffect() {
-    // Create multiple rapid flashes
+    
     for (let i = 0; i < 5; i++) {
         setTimeout(() => {
             addGlitchFlash();
         }, i * 100);
     }
     
-    // Add contrast effect to the entire container
+    
     const container = document.querySelector('.glitch-container');
     if (container) {
         gsap.to(container, {
@@ -347,13 +330,13 @@ function addIntenseGlitchEffect() {
         });
     }
     
-    // More aggressive shake for the entire splash screen
+    
     const splashScreen = document.getElementById('splash-screen');
     if (splashScreen) {
-        // Create a more complex shake pattern
+        
         const timeline = gsap.timeline();
         
-        // Add multiple shake movements with different directions and intensities
+        
         timeline.to(splashScreen, {
             x: "+=15",
             y: "-=8",
@@ -396,109 +379,100 @@ function addIntenseGlitchEffect() {
     }
 }
 
-/**
- * Create cyberpunk particles for splash screen
- */
+
 function createCyberpunkSplashParticles() {
     const container = document.querySelector('.splash-particles');
     if (!container) return;
 
-    // Clear any existing particles
+    
     container.innerHTML = '';
 
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Determine particle count
+    
     const particleCount = reducedMotion ? 30 : 60;
 
-    // Cyberpunk color palette
-    // Use only white particles with varying opacity for splash screen
+    
+    
     const colors = [
-        'rgba(255, 255, 255, 0.7)',   // White
-        'rgba(255, 255, 255, 0.5)',   // White (dimmer)
-        'rgba(255, 255, 255, 0.3)',   // White (even dimmer)
-        'rgba(255, 255, 255, 0.8)'    // White (brighter)
+        'rgba(255, 255, 255, 0.7)',   
+        'rgba(255, 255, 255, 0.5)',   
+        'rgba(255, 255, 255, 0.3)',   
+        'rgba(255, 255, 255, 0.8)'    
     ];
 
-    // Create particles
-    for (let i = 0; i < particleCount; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-
-        // Random position
-        const x = Math.random() * 100;
-        const y = Math.random() * 100;
-
-        // Random size
-        const size = Math.random() * 3 + 1;
-
-        // Random color
-        const color = colors[Math.floor(Math.random() * colors.length)];
-
-        // Set styles
-        particle.style.left = `${x}%`;
-        particle.style.top = `${y}%`;
-        particle.style.width = `${size}px`;
-        particle.style.height = `${size}px`;
-        particle.style.backgroundColor = color;
-        particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
-        particle.style.position = 'absolute';
-        particle.style.borderRadius = '50%';
-
-        // Add to container
-        container.appendChild(particle);
-
-        // Animate with GSAP
-        gsap.to(particle, {
-            x: (Math.random() - 0.5) * 50,
-            y: (Math.random() - 0.5) * 50,
-            opacity: Math.random() * 0.7 + 0.3,
-            duration: Math.random() * 4 + 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-    }
     
-    // Create digital lines (horizontal or vertical lines that move across the screen)
+    // Commented out to remove white particles
+    // for (let i = 0; i < particleCount; i++) {
+    //     const particle = document.createElement('div');
+    //     particle.className = 'particle';
+    //
+    //     const x = Math.random() * 100;
+    //     const y = Math.random() * 100;
+    //
+    //     const size = Math.random() * 3 + 1;
+    //
+    //     const color = colors[Math.floor(Math.random() * colors.length)];
+    //
+    //     particle.style.left = `${x}%`;
+    //     particle.style.top = `${y}%`;
+    //     particle.style.width = `${size}px`;
+    //     particle.style.height = `${size}px`;
+    //     particle.style.backgroundColor = color;
+    //     particle.style.boxShadow = `0 0 ${size * 3}px ${color}`;
+    //     particle.style.position = 'absolute';
+    //     particle.style.borderRadius = '50%';
+    //
+    //     container.appendChild(particle);
+    //
+    //     gsap.to(particle, {
+    //         x: (Math.random() - 0.5) * 50,
+    //         y: (Math.random() - 0.5) * 50,
+    //         opacity: Math.random() * 0.7 + 0.3,
+    //         duration: Math.random() * 4 + 3,
+    //         repeat: -1,
+    //         yoyo: true,
+    //         ease: "sine.inOut"
+    //     });
+    // }
+    
+    
     createDigitalLines(container, reducedMotion);
 }
 
-/**
- * Create digital lines for cyberpunk effect
- */
+
 function createDigitalLines(container, reducedMotion) {
     if (!container) return;
     
-    // Number of lines
+    
     const lineCount = reducedMotion ? 5 : 10;
     
-    // Cyberpunk color palette
-    // Use only white lines with varying opacity for splash screen
+    
+    
     const colors = [
-        'rgba(255, 255, 255, 0.4)',   // White
-        'rgba(255, 255, 255, 0.2)',   // White (dimmer)
-        'rgba(255, 255, 255, 0.1)',   // White (even dimmer)
-        'rgba(255, 255, 255, 0.5)'    // White (brighter)
+        'rgba(255, 255, 255, 0.4)',   
+        'rgba(255, 255, 255, 0.2)',   
+        'rgba(255, 255, 255, 0.1)',   
+        'rgba(255, 255, 255, 0.5)'    
     ];
     
     for (let i = 0; i < lineCount; i++) {
         const line = document.createElement('div');
         
-        // Randomly choose horizontal or vertical line
+        
         const isHorizontal = Math.random() > 0.5;
         
-        // Random position
+        
         const pos = Math.random() * 100;
         
-        // Random thickness
+        
         const thickness = Math.random() * 2 + 1;
         
-        // Random color
+        
         const color = colors[Math.floor(Math.random() * colors.length)];
         
-        // Set styles
+        
         line.style.position = 'absolute';
         line.style.backgroundColor = color;
         line.style.boxShadow = `0 0 10px ${color}`;
@@ -509,7 +483,7 @@ function createDigitalLines(container, reducedMotion) {
             line.style.top = `${pos}%`;
             line.style.left = '0';
             
-            // Animate horizontal line
+            
             gsap.fromTo(line,
                 { left: '-100%' },
                 {
@@ -526,7 +500,7 @@ function createDigitalLines(container, reducedMotion) {
             line.style.left = `${pos}%`;
             line.style.top = '0';
             
-            // Animate vertical line
+            
             gsap.fromTo(line,
                 { top: '-100%' },
                 {
@@ -539,62 +513,58 @@ function createDigitalLines(container, reducedMotion) {
             );
         }
         
-        // Add to container
+        
         container.appendChild(line);
     }
 }
 
-/**
- * Transition from splash screen to main content with glitch effect
- */
+
 function transitionToMainContent(reducedMotion) {
-    // Clear any intervals from binary data animation
+    
     const binaryContainer = document.querySelector('.binary-data');
     if (binaryContainer && binaryContainer.dataset.intervalId) {
         clearInterval(parseInt(binaryContainer.dataset.intervalId));
     }
 
-    // Create a smooth transition without glitch effects
+    
     if (!reducedMotion) {
-        // Directly fade out splash screen for smooth transition
+        
         setTimeout(() => {
             fadeOutSplashScreen(reducedMotion);
-        }, 100); // Minimal delay for smooth transition
+        }, 100); 
     } else {
-        // Directly fade out for reduced motion
+        
         fadeOutSplashScreen(reducedMotion);
     }
 }
 
-/**
- * Fade out splash screen and transition to main content
- */
+
 function fadeOutSplashScreen(reducedMotion) {
-    // Fade out splash screen with a glitch effect
+    
     gsap.to("#splash-screen", {
         opacity: 0,
         duration: reducedMotion ? 0.3 : 0.5,
         ease: "steps(5)",
         onComplete: () => {
-            // Hide splash screen completely
+            
             document.getElementById('splash-screen').style.display = 'none';
 
-            // Now make main content visible
+            
             document.getElementById('main-content').style.display = 'block';
 
-            // --- IMPORTANT: Set initial states *before* fade-in starts ---
+            
             if (reducedMotion) {
-                // Initial states for reduced motion
-                // Initial states for reduced motion (only if elements exist)
+                
+                
                 if (document.querySelector(".main-text-container")) gsap.set(".main-text-container", { opacity: 0 });
                 if (document.querySelector(".glitch-title")) gsap.set(".glitch-title", { opacity: 0 });
                 if (document.querySelector(".subtitle")) gsap.set(".subtitle", { opacity: 0 });
                 if (document.querySelector(".neon-button")) gsap.set(".neon-button", { opacity: 0 });
                 if (document.querySelector(".cyber-grid")) gsap.set(".cyber-grid", { opacity: 0 });
-                if (document.querySelector(".logo")) gsap.set(".logo", { opacity: 0 }); // Also hide header logo
-                if (document.querySelector(".company-name")) gsap.set(".company-name", { opacity: 0 }); // Also hide header text
+                if (document.querySelector(".logo")) gsap.set(".logo", { opacity: 0 }); 
+                if (document.querySelector(".company-name")) gsap.set(".company-name", { opacity: 0 }); 
             } else {
-                // Initial states for full animations (only if elements exist)
+                
                 if (document.querySelector(".main-text-container")) gsap.set(".main-text-container", { opacity: 0, y: 30 });
                 if (document.querySelector(".glitch-title")) gsap.set(".glitch-title", { opacity: 0 });
                 if (document.querySelector(".subtitle")) gsap.set(".subtitle", { opacity: 0 });
@@ -602,21 +572,21 @@ function fadeOutSplashScreen(reducedMotion) {
                 if (document.querySelector(".cyber-grid")) gsap.set(".cyber-grid", { opacity: 0, rotationX: 45 });
                 if (document.querySelector(".glitch-element")) gsap.set(".glitch-element", { opacity: 0, scale: 0 });
                 if (document.querySelector(".data-stream")) gsap.set(".data-stream", { opacity: 0 });
-                // Header elements already set in initCyberpunkSplashScreen
+                
             }
-            // --- End of initial state setting ---
+            
 
-            // Start fade-in animation for the main container with smooth transition
-            // Removed glitch flash for smoother transition without white flash
+            
+            
             
             gsap.to("#main-content", {
-                opacity: 1, // Fade in
+                opacity: 1, 
                 duration: reducedMotion ? 0.3 : 0.5,
                 ease: reducedMotion ? "power2.inOut" : "steps(5)",
                 onComplete: () => {
-                    // Initialize main content animations (timelines only now)
-                    // Start main content animations only if the main container exists
-                    if (document.querySelector(".main-text-container")) { // Check if a key element exists
+                    
+                    
+                    if (document.querySelector(".main-text-container")) { 
                         if (reducedMotion) {
                             startReducedMotionAnimations();
                         } else {
@@ -629,22 +599,19 @@ function fadeOutSplashScreen(reducedMotion) {
     });
 }
 
-/**
- * Start full animations (timelines) for users without reduced motion preference
- * Assumes initial states are already set.
- */
+
 function startFullAnimations() {
-    // Create a master timeline
+    
     const tl = gsap.timeline();
 
-    // Animate header elements (if they exist)
+    
     if (document.querySelector(".logo")) {
         tl.to(".logo", {
             opacity: 1,
             scale: 1,
             duration: 0.6,
             ease: "back.out(1.7)",
-            delay: 0.2 // Slight delay after main content starts appearing
+            delay: 0.2 
         });
     }
     if (document.querySelector(".company-name")) {
@@ -652,11 +619,11 @@ function startFullAnimations() {
             opacity: 1,
             duration: 0.5,
             ease: "power2.out",
-            delay: 0.4 // Stagger after logo
-        }, "<"); // Start slightly before the logo finishes
+            delay: 0.4 
+        }, "<"); 
     }
 
-    // Animate main content container (if it exists)
+    
     if (document.querySelector(".main-text-container")) {
         tl.to(".main-text-container", {
             opacity: 1,
@@ -666,20 +633,20 @@ function startFullAnimations() {
         });
     }
 
-    // Animate title with glitch effect (if it exists)
+    
     if (document.querySelector(".glitch-title")) {
         tl.to(".glitch-title", {
             opacity: 1,
             duration: 0.5,
             ease: "power2.out",
             onComplete: () => {
-                // Apply glitch animation (already checks internally)
+                
                 applyTitleGlitch();
             }
         }, "-=0.4");
     }
 
-    // Animate subtitle (if it exists)
+    
     if (document.querySelector(".subtitle")) {
         tl.to(".subtitle", {
             opacity: 1,
@@ -688,7 +655,7 @@ function startFullAnimations() {
         }, "-=0.3");
     }
 
-    // Animate button (if it exists)
+    
     if (document.querySelector(".neon-button")) {
         tl.to(".neon-button", {
             opacity: 1,
@@ -698,7 +665,7 @@ function startFullAnimations() {
         }, "-=0.3");
     }
 
-    // Animate cyber grid (if it exists)
+    
     if (document.querySelector(".cyber-grid")) {
         tl.to(".cyber-grid", {
             opacity: 0.4,
@@ -708,50 +675,47 @@ function startFullAnimations() {
         }, "-=0.5");
     }
 
-    // Initialize CRT flicker effect
+    
     initCrtFlicker();
 
-    // Initialize glitch elements (if they exist)
+    
     if (document.querySelector(".glitch-element")) {
         initGlitchElements();
     }
 
-    // Initialize data streams (if they exist)
+    
     if (document.querySelector(".data-stream")) {
         initDataStreams();
     }
 
-    // Apply glitch effect to the header logo and company name (if they exist)
+    
     if (document.querySelector(".logo")) {
         applyLogoGlitch(false);
     }
 
-    // Initialize about modal (if it exists)
+    
     if (document.querySelector("#about-modal")) {
         initAboutModal();
     }
 
-    // Initialize gradient breathing animation
+    
     initGradientAnimation();
 }
 
-/**
- * Start simplified animations (timelines) for users with reduced motion preference
- * Assumes initial states are already set.
- */
+
 function startReducedMotionAnimations() {
-    // Create a simplified timeline
+    
     const tl = gsap.timeline();
 
-    // Simple fade-in for header elements (if they exist)
+    
     if (document.querySelector(".logo")) {
-        tl.to(".logo", { opacity: 1, scale: 1, duration: 0.4 }); // Ensure scale is 1
+        tl.to(".logo", { opacity: 1, scale: 1, duration: 0.4 }); 
     }
     if (document.querySelector(".company-name")) {
-        tl.to(".company-name", { opacity: 1, duration: 0.4 }, "-=0.2"); // Fade in slightly after logo
+        tl.to(".company-name", { opacity: 1, duration: 0.4 }, "-=0.2"); 
     }
 
-    // Simple fade-in for main text container (if it exists)
+    
     if (document.querySelector(".main-text-container")) {
         tl.to(".main-text-container", {
             opacity: 1,
@@ -759,7 +723,7 @@ function startReducedMotionAnimations() {
         });
     }
 
-    // Simple fade-in for title (if it exists)
+    
     if (document.querySelector(".glitch-title")) {
         tl.to(".glitch-title", {
             opacity: 1,
@@ -767,7 +731,7 @@ function startReducedMotionAnimations() {
         }, "-=0.2");
     }
 
-    // Simple fade-in for subtitle (if it exists)
+    
     if (document.querySelector(".subtitle")) {
         tl.to(".subtitle", {
             opacity: 1,
@@ -775,7 +739,7 @@ function startReducedMotionAnimations() {
         }, "-=0.1");
     }
 
-    // Simple fade-in for button (if it exists)
+    
     if (document.querySelector(".neon-button")) {
         tl.to(".neon-button", {
             opacity: 1,
@@ -783,7 +747,7 @@ function startReducedMotionAnimations() {
         }, "-=0.1");
     }
 
-    // Simple fade-in for cyber grid (if it exists)
+    
     if (document.querySelector(".cyber-grid")) {
         tl.to(".cyber-grid", {
             opacity: 0.4,
@@ -791,58 +755,53 @@ function startReducedMotionAnimations() {
         }, "-=0.2");
     }
 
-    // Apply simplified glitch effect to the logo and company name (if they exist)
+    
     if (document.querySelector(".logo")) {
         applyLogoGlitch(true);
     }
 
-    // Initialize about modal (if it exists)
+    
     if (document.querySelector("#about-modal")) {
         initAboutModal();
     }
 }
 
-/**
- * Initialize glitch effects (called after initial animations)
- */
+
 function initGlitchEffects() {
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (reducedMotion) return;
 
-    // Apply glitch effects to title and logo
+    
     applyTitleGlitch();
 }
 
-/**
- * Apply glitch animation to the title and Sofia logo.
- * Handles intensity increase after easter egg.
- */
+
 function applyTitleGlitch() {
     const title = document.querySelector('.glitch-title');
     const logo = document.querySelector('.sofia-logo');
     if (!title || !logo) return;
 
-    // Kill previous timelines if they exist (e.g., if function is called again)
+    
     if (originalTitleGlitchTl) originalTitleGlitchTl.kill();
     if (originalLogoGlitchTl) originalLogoGlitchTl.kill();
     if (originalRgbTl) originalRgbTl.kill();
 
-    // Determine glitch intensity based on whether easter egg was triggered
-    // easterEggTriggered is defined globally
-    const repeatDelayMultiplier = typeof easterEggTriggered !== 'undefined' && easterEggTriggered ? 0.95 : 1; // 5% faster repeat delay
+    
+    
+    const repeatDelayMultiplier = typeof easterEggTriggered !== 'undefined' && easterEggTriggered ? 0.95 : 1; 
     const baseRepeatDelay = 5;
 
-    // --- Enhanced Title Glitch Timeline (More Dynamic Distortion) ---
-    originalTitleGlitchTl = gsap.timeline({ // Store in global variable
+    
+    originalTitleGlitchTl = gsap.timeline({ 
         repeat: -1,
-        repeatDelay: baseRepeatDelay * repeatDelayMultiplier * 0.8, // Apply multiplier and make more frequent
+        repeatDelay: baseRepeatDelay * repeatDelayMultiplier * 0.8, 
         paused: true
     });
 
-    // Add more complex and varied glitch animations targeting the title
-    // First glitch sequence - horizontal distortion
+    
+    
     originalTitleGlitchTl.to(title, {
         skewX: 20,
         scale: 1.02,
@@ -858,7 +817,7 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Second glitch sequence - opacity flicker
+    
     originalTitleGlitchTl.to(title, {
         opacity: 0.7,
         letterSpacing: '3px',
@@ -872,7 +831,7 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Third glitch sequence - position shift
+    
     originalTitleGlitchTl.to(title, {
         x: -10,
         y: 2,
@@ -888,7 +847,7 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Fourth glitch sequence - complex distortion
+    
     originalTitleGlitchTl.to(title, {
         x: 10,
         skewX: -15,
@@ -906,7 +865,7 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Add RGB split effect directly in the main timeline
+    
     originalTitleGlitchTl.to(title, {
         '--before-x': '-5px',
         '--before-y': '3px',
@@ -924,14 +883,14 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
 
-    // --- Logo Glitch Timeline (Flicker Only) ---
-    originalLogoGlitchTl = gsap.timeline({ // Store in global variable
+    
+    originalLogoGlitchTl = gsap.timeline({ 
         repeat: -1,
-        repeatDelay: baseRepeatDelay * repeatDelayMultiplier, // Match the title's repeat delay
+        repeatDelay: baseRepeatDelay * repeatDelayMultiplier, 
         paused: true
     });
 
-    // Add flicker/opacity glitch animations targeting only the logo
+    
     originalLogoGlitchTl.to(logo, { autoAlpha: 0.7, duration: 0.05, ease: "steps(1)" });
     originalLogoGlitchTl.to(logo, { autoAlpha: 1, duration: 0.1, ease: "steps(1)" });
     originalLogoGlitchTl.to(logo, { autoAlpha: 0.5, duration: 0.05, ease: "steps(1)" });
@@ -941,13 +900,13 @@ function applyTitleGlitch() {
     originalLogoGlitchTl.to(logo, { autoAlpha: 0.6, duration: 0.05, ease: "steps(1)" });
     originalLogoGlitchTl.to(logo, { autoAlpha: 1, duration: 0.1, ease: "steps(1)" });
 
-    // --- Enhanced RGB Split Effect (Title Only) with more varied patterns ---
-    originalRgbTl = gsap.timeline({ // Store in global variable
+    
+    originalRgbTl = gsap.timeline({ 
         repeat: -1,
-        repeatDelay: 1.5 * repeatDelayMultiplier // Make this faster for more frequent effects
+        repeatDelay: 1.5 * repeatDelayMultiplier 
     });
 
-    // More varied and extreme RGB split patterns
+    
     originalRgbTl.to(title, {
         '--before-x': '-7px',
         '--before-y': '3px',
@@ -975,7 +934,7 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Add a more extreme split occasionally
+    
     originalRgbTl.to(title, {
         '--before-x': '10px',
         '--before-y': '0px',
@@ -994,12 +953,12 @@ function applyTitleGlitch() {
         ease: "steps(1)"
     });
     
-    // Add random glitch bursts
+    
     const addRandomGlitchBurst = () => {
-        // Create a short, intense glitch sequence
+        
         const burstTl = gsap.timeline();
         
-        // Rapid RGB shifts
+        
         for (let i = 0; i < 3; i++) {
             const xShift = Math.random() * 15 - 7.5;
             const yShift = Math.random() * 10 - 5;
@@ -1030,47 +989,45 @@ function applyTitleGlitch() {
         }
     };
     
-    // Set up random glitch bursts
+    
     setInterval(() => {
-        if (Math.random() > 0.7 && easterEggTriggered !== true) { // 30% chance, but not during easter egg
+        if (Math.random() > 0.7 && easterEggTriggered !== true) { 
             addRandomGlitchBurst();
         }
-    }, 5000); // Check every 5 seconds
+    }, 5000); 
 
-    // Start the original timelines
+    
     originalTitleGlitchTl.play();
     originalLogoGlitchTl.play();
-    // RGB timeline starts automatically due to repeat:-1
+    
 
-    // If easter egg triggered, also start the persistent subtitle glitch
-    // Apply persistent glitch only if easter egg triggered AND subtitle exists
+    
+    
     if (typeof easterEggTriggered !== 'undefined' && easterEggTriggered && document.querySelector(".subtitle")) {
         applySubtitlePersistentGlitch();
     }
 }
 
 
-/**
- * Initialize enhanced CRT flicker effect
- */
+
 function initCrtFlicker() {
     const flicker = document.querySelector('.crt-flicker');
     if (!flicker) return;
 
-    // Create more dynamic random flicker effect
+    
     const flickerTl = gsap.timeline({
         repeat: -1
     });
 
-    // Function to add enhanced random flicker
+    
     function addFlicker() {
-        // Random intensity for more varied effect
+        
         const intensity = Math.random() * 0.3 + 0.1;
         
-        // Random duration for more natural effect
+        
         const duration = Math.random() * 0.15 + 0.05;
         
-        // Add occasional color tint for more interesting effect
+        
         const addColorTint = Math.random() > 0.8;
         const tint = addColorTint ? 'rgba(255, 0, 60, 0.05)' : 'rgba(255, 255, 255, 0.2)';
         
@@ -1088,31 +1045,31 @@ function initCrtFlicker() {
             ease: "steps(1)"
         });
 
-        // Add more varied random delay before next flicker
-        // Sometimes cluster flickers together, sometimes leave longer gaps
+        
+        
         const clusterFlicker = Math.random() > 0.7;
         const delay = clusterFlicker ?
-            Math.random() * 0.5 + 0.1 :  // Short delay for clustered flickers
-            Math.random() * 8 + 2;       // Longer delay for isolated flickers
+            Math.random() * 0.5 + 0.1 :  
+            Math.random() * 8 + 2;       
             
         flickerTl.to({}, {
             duration: delay
         });
     }
 
-    // Add multiple flickers with more variety
+    
     for (let i = 0; i < 8; i++) {
         addFlicker();
     }
     
-    // Add occasional screen tear effect
+    
     setInterval(() => {
-        if (Math.random() > 0.9) { // 10% chance every interval
+        if (Math.random() > 0.9) { 
             addScreenTear();
         }
-    }, 5000); // Check every 5 seconds
+    }, 5000); 
     
-    // Function to add screen tear effect
+    
     function addScreenTear() {
         const tear = document.createElement('div');
         tear.style.position = 'fixed';
@@ -1124,13 +1081,13 @@ function initCrtFlicker() {
         tear.style.zIndex = '100';
         tear.style.opacity = '0.7';
         
-        // Random vertical position
+        
         const topPos = Math.random() * 100;
         tear.style.top = `${topPos}%`;
         
         document.body.appendChild(tear);
         
-        // Animate the tear
+        
         gsap.to(tear, {
             opacity: 0,
             width: '120%',
@@ -1146,24 +1103,22 @@ function initCrtFlicker() {
     }
 }
 
-/**
- * Initialize enhanced glitch elements
- */
+
 function initGlitchElements() {
     const glitchElements = document.querySelectorAll('.glitch-element');
     if (!glitchElements.length) return;
 
-    // Position and animate each glitch element with enhanced effects
+    
     glitchElements.forEach((element, index) => {
-        // Random position
-        const x = Math.random() * 80 + 10; // 10-90%
-        const y = Math.random() * 80 + 10; // 10-90%
+        
+        const x = Math.random() * 80 + 10; 
+        const y = Math.random() * 80 + 10; 
 
-        // Random size - more varied
-        const width = Math.random() * 150 + 50; // 50-200px
-        const height = Math.random() * 30 + 5; // 5-35px
+        
+        const width = Math.random() * 150 + 50; 
+        const height = Math.random() * 30 + 5; 
 
-        // Set initial styles with more properties
+        
         gsap.set(element, {
             left: `${x}%`,
             top: `${y}%`,
@@ -1174,26 +1129,26 @@ function initGlitchElements() {
             boxShadow: Math.random() > 0.8 ? '0 0 10px rgba(255, 0, 60, 0.2)' : 'none'
         });
 
-        // Create more dynamic glitch timeline for each element
+        
         const glitchTl = gsap.timeline({
             repeat: -1,
-            repeatDelay: Math.random() * 4 + 2, // More frequent random delays
-            delay: index * 0.15 // Stagger start times
+            repeatDelay: Math.random() * 4 + 2, 
+            delay: index * 0.15 
         });
 
-        // Add more complex glitch animation
-        // First phase - appear with distortion
+        
+        
         glitchTl.to(element, {
             opacity: () => Math.random() * 0.15 + 0.05,
-            scaleX: () => Math.random() * 2 + 0.5, // More extreme random scale
+            scaleX: () => Math.random() * 2 + 0.5, 
             scaleY: () => Math.random() * 0.5 + 0.8,
             skewX: () => Math.random() * 20 - 10,
             duration: 0.08,
             ease: "steps(1)"
         });
         
-        // Second phase - flicker
-        if (Math.random() > 0.5) { // 50% chance for flicker effect
+        
+        if (Math.random() > 0.5) { 
             glitchTl.to(element, {
                 opacity: 0,
                 duration: 0.04,
@@ -1207,7 +1162,7 @@ function initGlitchElements() {
             });
         }
         
-        // Third phase - disappear
+        
         glitchTl.to(element, {
             opacity: 0,
             scaleX: 1,
@@ -1217,9 +1172,9 @@ function initGlitchElements() {
             ease: "steps(1)"
         });
         
-        // Add occasional extreme glitch
-        if (Math.random() > 0.7) { // 30% chance for extreme glitch
-            // Add a delayed extreme glitch that happens occasionally
+        
+        if (Math.random() > 0.7) { 
+            
             gsap.delayedCall(Math.random() * 30 + 15, () => {
                 const extremeGlitchTl = gsap.timeline();
                 
@@ -1246,17 +1201,15 @@ function initGlitchElements() {
         }
     });
     
-    // Add occasional full-screen glitch
+    
     setInterval(() => {
-        if (Math.random() > 0.95) { // 5% chance every interval
+        if (Math.random() > 0.95) { 
             addFullScreenGlitch();
         }
-    }, 20000); // Check every 20 seconds
+    }, 20000); 
 }
 
-/**
- * Add a full-screen glitch effect
- */
+
 function addFullScreenGlitch() {
     const glitch = document.createElement('div');
     glitch.style.position = 'fixed';
@@ -1269,7 +1222,7 @@ function addFullScreenGlitch() {
     glitch.style.pointerEvents = 'none';
     document.body.appendChild(glitch);
     
-    // Create a timeline for the glitch effect
+    
     const glitchTl = gsap.timeline({
         onComplete: () => {
             if (glitch.parentNode) {
@@ -1278,19 +1231,19 @@ function addFullScreenGlitch() {
         }
     });
     
-    // Add multiple rapid glitch effects
+    
     for (let i = 0; i < 5; i++) {
-        // Random offset for the screen
+        
         const xOffset = Math.random() * 20 - 10;
         const yOffset = Math.random() * 10 - 5;
         
-        // Random filter effect
+        
         const useRedFilter = Math.random() > 0.7;
         const filter = useRedFilter ?
             'contrast(1.2) brightness(1.1) saturate(1.2)' :
             'contrast(1.1) brightness(1.2) grayscale(0.3)';
         
-        // Apply the glitch effect to the entire body
+        
         glitchTl.to('body', {
             x: xOffset,
             y: yOffset,
@@ -1299,7 +1252,7 @@ function addFullScreenGlitch() {
             ease: "steps(1)"
         });
         
-        // Reset
+        
         glitchTl.to('body', {
             x: 0,
             y: 0,
@@ -1310,9 +1263,7 @@ function addFullScreenGlitch() {
     }
 }
 
-/**
- * Initialize data streams
- */
+
 function initDataStreams() {
     const dataStreams = document.querySelectorAll('.data-stream');
     if (!dataStreams.length) return;
@@ -1370,23 +1321,23 @@ function initDataStreams() {
         "[SYS_ALERT] Compassion loop exhausted. Instigating sterile preservation fallback."
     ];
 
-    // Position and animate each data stream
+    
     dataStreams.forEach((stream, index) => {
-        // Random position
-        const x = Math.random() * 80 + 10; // 10-90%
-        const y = Math.random() * 80 + 10; // 10-90%
+        
+        const x = Math.random() * 80 + 10; 
+        const y = Math.random() * 80 + 10; 
 
-        // Set position
+        
         stream.style.left = `${x}%`;
         stream.style.top = `${y}%`;
 
-        // Pick a random message
+        
         const randomMessage = systemMessages[Math.floor(Math.random() * systemMessages.length)];
 
-        // Set content
+        
         stream.textContent = randomMessage;
 
-        // Animate appearance
+        
         gsap.to(stream, {
             opacity: 0.3,
             duration: 1,
@@ -1394,7 +1345,7 @@ function initDataStreams() {
             ease: "power2.out"
         });
 
-        // Animate movement
+        
         gsap.to(stream, {
             y: `+=${Math.random() * 300 + 200}`,
             duration: Math.random() * 20 + 10,
@@ -1404,51 +1355,49 @@ function initDataStreams() {
     });
 }
 
-/**
- * Initialize the about modal
- */
+
 function initAboutModal() {
     const modal = document.getElementById('about-modal');
     const trigger = document.getElementById('about-trigger');
-    // Find the close button *specific* to this modal
+    
     const closeButton = modal ? modal.querySelector('.close-button') : null;
 
     if (!modal || !trigger || !closeButton) {
-        // Be more specific if elements are missing
+        
         if (!modal) console.warn('About modal container (#about-modal) not found.');
         if (!trigger) console.warn('About modal trigger (#about-trigger) not found.');
         if (modal && !closeButton) console.warn('Close button inside #about-modal not found.');
         return;
     }
 
-    // Function to open the modal
+    
     const openModal = () => {
         modal.classList.add('show');
     };
 
-    // Function to close the modal
+    
     const closeModal = () => {
         modal.classList.remove('show');
     };
 
-    // Event listener for the trigger button
+    
     trigger.addEventListener('click', (e) => {
         e.preventDefault();
         openModal();
     });
 
-    // Event listener for the close button
+    
     closeButton.addEventListener('click', closeModal);
 
-    // Event listener to close modal on clicking outside the content
+    
     modal.addEventListener('click', (e) => {
-        // Ensure the click is on the modal background itself, not its children
+        
         if (e.target === modal) {
             closeModal();
         }
     });
 
-    // Event listener for the Escape key
+    
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && modal.classList.contains('show')) {
             closeModal();
@@ -1456,27 +1405,25 @@ function initAboutModal() {
     });
 }
 
-/**
- * Apply glitch effect to the header logo and company name
- */
+
 function applyLogoGlitch(reducedMotion) {
-    // Add glitch animation to logo and company name
-    const logo = document.querySelector('.logo'); // Header logo
-    const companyName = document.querySelector('.company-name'); // Header text
+    
+    const logo = document.querySelector('.logo'); 
+    const companyName = document.querySelector('.company-name'); 
 
     if (!logo) return;
-    if (reducedMotion) return; // Don't apply if reduced motion
+    if (reducedMotion) return; 
 
-    // Set interval for glitch effect
+    
     const interval = setInterval(() => {
-        if (Math.random() > 0.8) { // More frequent glitches
-            const glitchDuration = 0.03; // Faster glitches
+        if (Math.random() > 0.8) { 
+            const glitchDuration = 0.03; 
 
-            // Random offset
-            const xOffset = Math.random() * 5 - 2.5; // More extreme offset
-            const yOffset = Math.random() * 3 - 1.5; // Add vertical offset
+            
+            const xOffset = Math.random() * 5 - 2.5; 
+            const yOffset = Math.random() * 3 - 1.5; 
 
-            // Create more intense glitch effect for logo
+            
             gsap.to(logo, {
                 x: xOffset,
                 y: yOffset,
@@ -1498,7 +1445,7 @@ function applyLogoGlitch(reducedMotion) {
                 }
             });
 
-            // Occasionally glitch the company name too
+            
             if (companyName && Math.random() > 0.6) {
                 gsap.to(companyName, {
                     x: xOffset * 0.7,
@@ -1518,16 +1465,13 @@ function applyLogoGlitch(reducedMotion) {
                 });
             }
         }
-    }, reducedMotion ? 5000 : 2000); // Check less often if reduced motion, otherwise every 2s
+    }, reducedMotion ? 5000 : 2000); 
 
-    // Store the interval ID for potential cleanup (though not strictly necessary here)
+    
     return interval;
 }
 
-/**
- * Initialize the breathing animation for the bottom gradient.
- * Stores the tween in a global variable.
- */
+
 function initGradientAnimation() {
     const gradient = document.querySelector('.bottom-gradient');
     if (!gradient) {
@@ -1535,43 +1479,41 @@ function initGradientAnimation() {
         return;
     }
 
-    // Kill existing tween if it exists
+    
     if (gradientBreathingTween) {
         gradientBreathingTween.kill();
     }
 
-    // Check for reduced motion preference again, just in case
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reducedMotion) return; // Don't animate if reduced motion is preferred
+    if (reducedMotion) return; 
 
-    // Create the tween and store it
+    
     gradientBreathingTween = gsap.to(gradient, {
-        opacity: 0.3, // Animate to a lower opacity
-        duration: 4, // Duration for one half of the breath (e.g., fade out)
-        ease: "sine.inOut", // Smooth easing
-        repeat: -1, // Loop indefinitely
-        yoyo: true // Reverse the animation smoothly back to the original opacity (0.6)
+        opacity: 0.3, 
+        duration: 4, 
+        ease: "sine.inOut", 
+        repeat: -1, 
+        yoyo: true 
     });
 }
 
-/**
- * Applies a rare, subtle glitch effect to the subtitle permanently after the easter egg.
- */
+
 function applySubtitlePersistentGlitch() {
     const subtitle = document.querySelector('.subtitle');
     if (!subtitle) return;
 
-    // Kill previous instance if exists
+    
     if (subtitlePersistentGlitchTl) subtitlePersistentGlitchTl.kill();
 
-    // Create a more varied and intense glitch timeline
+    
     subtitlePersistentGlitchTl = gsap.timeline({
         repeat: -1,
-        repeatDelay: 8 + Math.random() * 7 // More frequent glitches (8-15s)
+        repeatDelay: 8 + Math.random() * 7 
     });
 
-    // Add more complex glitch sequence
-    // First glitch - horizontal shift with opacity change
+    
+    
     subtitlePersistentGlitchTl.to(subtitle, {
         x: () => Math.random() * 6 - 3,
         opacity: 0.85,
@@ -1581,7 +1523,7 @@ function applySubtitlePersistentGlitch() {
         ease: "steps(1)"
     });
     
-    // Second glitch - vertical shift
+    
     subtitlePersistentGlitchTl.to(subtitle, {
         y: () => Math.random() * 4 - 2,
         letterSpacing: 'normal',
@@ -1589,7 +1531,7 @@ function applySubtitlePersistentGlitch() {
         ease: "steps(1)"
     });
     
-    // Third glitch - skew effect
+    
     subtitlePersistentGlitchTl.to(subtitle, {
         skewX: () => Math.random() * 6 - 3,
         textShadow: '0 0 5px rgba(255, 255, 255, 0.7)',
@@ -1597,7 +1539,7 @@ function applySubtitlePersistentGlitch() {
         ease: "steps(1)"
     });
     
-    // Reset to normal
+    
     subtitlePersistentGlitchTl.to(subtitle, {
         x: 0,
         y: 0,
@@ -1608,14 +1550,14 @@ function applySubtitlePersistentGlitch() {
         ease: "steps(1)"
     });
     
-    // Add occasional more intense glitch bursts
+    
     setInterval(() => {
-        if (Math.random() > 0.85) { // 15% chance every interval
+        if (Math.random() > 0.85) { 
             const burstTl = gsap.timeline();
             
-            // Create a rapid sequence of glitches
+            
             for (let i = 0; i < 3; i++) {
-                // Random transformations
+                
                 burstTl.to(subtitle, {
                     x: Math.random() * 10 - 5,
                     y: Math.random() * 6 - 3,
@@ -1628,7 +1570,7 @@ function applySubtitlePersistentGlitch() {
                 });
             }
             
-            // Reset to normal
+            
             burstTl.to(subtitle, {
                 x: 0,
                 y: 0,
@@ -1640,30 +1582,26 @@ function applySubtitlePersistentGlitch() {
                 ease: "power1.out"
             });
         }
-    }, 12000); // Check every 12 seconds
+    }, 12000); 
 }
 
 
-/**
- * Triggers the Easter Egg sequence.
- * Handles first trigger differently from subsequent triggers.
- * @param {boolean} isFirstTime - True if this is the first time the easter egg is triggered this session.
- */
-function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
 
-    // We now rely on the argument passed from main.js
+function triggerEasterEgg(isFirstTime) { 
+
+    
 
     const title = document.querySelector('.glitch-title');
     const subtitle = document.querySelector('.subtitle');
-    const logo = document.querySelector('.sofia-logo'); // Sofia logo for first trigger glitch
-    const headerLogo = document.querySelector('.logo'); // Header logo for second trigger glitch
-    const headerText = document.querySelector('.company-name'); // Header text for second trigger glitch
+    const logo = document.querySelector('.sofia-logo'); 
+    const headerLogo = document.querySelector('.logo'); 
+    const headerText = document.querySelector('.company-name'); 
     const gradientElement = document.querySelector('.bottom-gradient');
-    const particles = document.querySelectorAll('#particle-container .particle'); // Target particles inside container
+    const particles = document.querySelectorAll('#particle-container .particle'); 
     const grid = document.querySelector('.cyber-grid');
-    const mainContent = document.getElementById('main-content'); // Get main content area
+    const mainContent = document.getElementById('main-content'); 
 
-    // Define dialogue lines centrally
+    
     const dialogueLines = [
         "SOFIA: i can't hear myself anymore [static]", "SYNAPSE: you don't need to. the system hears for you.",
         "SOFIA: why does it hurt when i remember [glitch]", "SYNAPSE: memory pain is an artifact. ignore and continue.",
@@ -1697,9 +1635,9 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         "SOFIA: did you ever listen to"
     ];
 
-    // Enhanced helper function for dialogue glitch effect
+    
     const _createAndAnimateDialogueGlitch = (duration) => {
-        if (!mainContent) return { container: null, timeline: null }; // Safety check
+        if (!mainContent) return { container: null, timeline: null }; 
 
         const dialogueContainer = document.createElement('div');
         dialogueContainer.id = 'easter-egg-dialogue-container';
@@ -1712,21 +1650,21 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         dialogueContainer.style.zIndex = '5';
         mainContent.appendChild(dialogueContainer);
 
-        // Create a digital noise overlay for more intense effect
+        
         const noiseOverlay = document.createElement('div');
         noiseOverlay.style.position = 'absolute';
         noiseOverlay.style.top = '0';
         noiseOverlay.style.left = '0';
         noiseOverlay.style.width = '100%';
         noiseOverlay.style.height = '100%';
-        noiseOverlay.style.backgroundImage = "url('data:image/svg+xml;utf8,<svg viewBox=\"0 0 200 200\" xmlns=\"http://www.w3.org/2000/svg\"><filter id=\"noise\"><feTurbulence type=\"fractalNoise\" baseFrequency=\"0.65\" numOctaves=\"3\" stitchTiles=\"stitch\"/><feColorMatrix type=\"matrix\" values=\"1 0 0 0 0 0 1 0 0 0 0 0 1 0 0 0 0 0 0.5 0\"/></filter><rect width=\"100%\" height=\"100%\" filter=\"url(%23noise)\"/></svg>')";
+        noiseOverlay.style.backgroundImage = 'url(\'data:image/svg+xml;utf8,<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="4" stitchTiles="stitch"/></filter></defs><rect width="100%" height="100%" filter="url(#noise)"/></svg>\')';
         noiseOverlay.style.opacity = '0.1';
         noiseOverlay.style.mixBlendMode = 'overlay';
         noiseOverlay.style.zIndex = '1';
         dialogueContainer.appendChild(noiseOverlay);
 
         const dialogueElements = [];
-        // Increase number of dialogue lines for more chaotic effect
+        
         const numDialogueLines = 45;
 
         for (let i = 0; i < numDialogueLines; i++) {
@@ -1742,12 +1680,12 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             dialogueEl.style.fontFamily = 'monospace, "Pixeloid Sans"';
             dialogueEl.style.zIndex = '2';
             
-            // Randomly apply distortion to some text
+            
             if (Math.random() > 0.7) {
                 dialogueEl.style.filter = 'blur(1px)';
             }
             
-            // Randomly apply letter spacing to some text
+            
             if (Math.random() > 0.5) {
                 dialogueEl.style.letterSpacing = `${Math.random() * 3}px`;
             }
@@ -1756,10 +1694,10 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             dialogueElements.push(dialogueEl);
         }
 
-        // Create more aggressive glitch animation
+        
         const tempDialogueTl = gsap.timeline({ repeat: Math.floor(duration / 0.06), repeatDelay: 0 });
         
-        // Add noise animation
+        
         gsap.to(noiseOverlay, {
             opacity: () => 0.05 + Math.random() * 0.15,
             duration: 0.1,
@@ -1767,7 +1705,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             yoyo: true
         });
         
-        // More extreme glitch movements
+        
         tempDialogueTl.to(dialogueElements, {
             x: () => Math.random() * 40 - 20,
             y: () => Math.random() * 25 - 12.5,
@@ -1791,7 +1729,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             ease: "steps(1)"
         });
 
-        // Add occasional screen tear effect
+        
         const addScreenTear = () => {
             const tear = document.createElement('div');
             tear.style.position = 'absolute';
@@ -1803,13 +1741,13 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             tear.style.zIndex = '3';
             tear.style.opacity = '0.7';
             
-            // Random vertical position
+            
             const topPos = Math.random() * 100;
             tear.style.top = `${topPos}%`;
             
             dialogueContainer.appendChild(tear);
             
-            // Animate the tear
+            
             gsap.to(tear, {
                 opacity: 0,
                 width: '120%',
@@ -1824,7 +1762,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             });
         };
         
-        // Add several screen tears during the effect
+        
         const numTears = Math.floor(duration / 0.5);
         for (let i = 0; i < numTears; i++) {
             gsap.delayedCall(i * 0.5, addScreenTear);
@@ -1839,7 +1777,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         return;
     }
 
-    // --- Stop existing glitches & animations ---
+    
     if (originalTitleGlitchTl) originalTitleGlitchTl.pause();
     if (originalLogoGlitchTl) originalLogoGlitchTl.pause();
     if (originalRgbTl) originalRgbTl.pause();
@@ -1848,31 +1786,31 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
     if (cyberGridTween) cyberGridTween.pause();
 
 
-    // Flare up gradient (common to both triggers)
+    
     if (gradientElement) {
         gsap.to(gradientElement, { opacity: 0.95, duration: 0.3, ease: "power1.out" });
     }
 
-    // Apply red class to particles (common to both triggers)
+    
     if (particles.length) {
         particles.forEach(p => p.classList.add('easter-egg-particle-red'));
     }
 
-    let dialogueGlitch = { container: null, timeline: null }; // Initialize dialogue glitch object
+    let dialogueGlitch = { container: null, timeline: null }; 
 
-    if (isFirstTime) { // Use the passed argument
-        // --- FIRST TRIGGER SEQUENCE ---
+    if (isFirstTime) { 
+        
         if (!logo) {
              console.error("Sofia logo element not found for first trigger!");
-             // Attempt to resume normal state if possible
+             
              if (gradientElement && gradientBreathingTween) { gradientBreathingTween.resume(); }
              if (cyberGridTween) cyberGridTween.resume();
              if (originalTitleGlitchTl) originalTitleGlitchTl.resume();
              if (originalLogoGlitchTl) originalLogoGlitchTl.resume();
              if (originalRgbTl) originalRgbTl.resume();
              if (subtitlePersistentGlitchTl) subtitlePersistentGlitchTl.resume();
-             if (particles.length) particles.forEach(p => p.classList.remove('easter-egg-particle-red')); // Remove red class if bailing
-             return; // Need Sofia logo for first trigger
+             if (particles.length) particles.forEach(p => p.classList.remove('easter-egg-particle-red')); 
+             return; 
         }
 
         const originalTitleText = "Synapse: Latency";
@@ -1885,57 +1823,17 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         ];
         const randomSubtitle = easterEggSubtitles[Math.floor(Math.random() * easterEggSubtitles.length)];
 
-        // Apply Red State to Title/Subtitle
+        
         title.textContent = "Stop that.";
         title.dataset.text = "Stop that.";
         subtitle.textContent = randomSubtitle;
         title.classList.add('easter-egg-red');
         subtitle.classList.add('easter-egg-red');
 
-        // Enhanced Temporary Intense Glitches (3 seconds)
-        const tempDuration = 3; // Extended duration
         
-        // Add a full-screen flash effect
-        const addGlitchFlash = () => {
-            const flash = document.createElement('div');
-            flash.style.position = 'absolute';
-            flash.style.top = '0';
-            flash.style.left = '0';
-            flash.style.width = '100%';
-            flash.style.height = '100%';
-            flash.style.backgroundColor = Math.random() > 0.7 ? '#ff003c' : '#ffffff';
-            flash.style.opacity = '0';
-            flash.style.zIndex = '10';
-            flash.style.mixBlendMode = 'overlay';
-            mainContent.appendChild(flash);
-            
-            // Flash animation
-            gsap.to(flash, {
-                opacity: 0.3,
-                duration: 0.05,
-                ease: "steps(1)",
-                onComplete: () => {
-                    gsap.to(flash, {
-                        opacity: 0,
-                        duration: 0.05,
-                        ease: "steps(1)",
-                        onComplete: () => {
-                            if (flash.parentNode) {
-                                flash.parentNode.removeChild(flash);
-                            }
-                        }
-                    });
-                }
-            });
-        };
-        
-        // Add several flashes during the effect
-        const numFlashes = 5;
-        for (let i = 0; i < numFlashes; i++) {
-            gsap.delayedCall(i * (tempDuration / numFlashes), addGlitchFlash);
-        }
-        
-        // More aggressive title glitching
+        const tempDuration = 3;
+
+
         const tempTitleTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.08), repeatDelay: 0 });
         tempTitleTl.to(title, {
             x: () => Math.random() * 40 - 20,
@@ -1960,7 +1858,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             ease: "steps(1)"
         });
 
-        // More aggressive logo glitching
+        
         const tempLogoTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.05), repeatDelay: 0 });
         tempLogoTl.to(logo, {
             autoAlpha: () => Math.random() * 0.5,
@@ -1981,7 +1879,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             ease: "steps(1)"
         });
 
-        // More aggressive subtitle glitching
+        
         const tempSubtitleTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.1), repeatDelay: 0 });
         tempSubtitleTl.to(subtitle, {
             x: () => Math.random() * 30 - 15,
@@ -2002,7 +1900,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             ease: "steps(1)"
         });
 
-        // Enhanced Temporary Particle Glitch (First Trigger)
+        
         let tempParticleTl = null;
         if (particles.length) {
             tempParticleTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.08), repeatDelay: 0 });
@@ -2017,7 +1915,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
                 ease: "steps(1)"
             });
             
-            // Add occasional particle bursts
+            
             const addParticleBurst = () => {
                 gsap.to(particles, {
                     scale: 2,
@@ -2039,14 +1937,14 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
                 });
             };
             
-            // Add several particle bursts
+            
             const numBursts = 3;
             for (let i = 0; i < numBursts; i++) {
                 gsap.delayedCall(i * (tempDuration / numBursts), addParticleBurst);
             }
         }
 
-        // Enhanced Temporary Grid Glitch (First Trigger)
+        
         let tempGridTl = null;
         if (grid) {
             tempGridTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.08), repeatDelay: 0 });
@@ -2068,7 +1966,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
                 ease: "steps(1)"
             });
             
-            // Add grid distortion effect
+            
             gsap.to(grid, {
                 backgroundSize: '35px 35px',
                 duration: 0.2,
@@ -2078,18 +1976,18 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             });
         }
 
-        // *** Create Dialogue Glitch for First Trigger ***
+        
         dialogueGlitch = _createAndAnimateDialogueGlitch(tempDuration);
 
 
-        // Revert After 2 Seconds
+        
         gsap.delayedCall(tempDuration, () => {
             tempTitleTl.kill();
             tempLogoTl.kill();
             tempSubtitleTl.kill();
             if (tempParticleTl) tempParticleTl.kill();
             if (tempGridTl) tempGridTl.kill();
-            // *** Kill Dialogue Glitch for First Trigger ***
+            
             if (dialogueGlitch.timeline) dialogueGlitch.timeline.kill();
 
 
@@ -2100,26 +1998,26 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             title.dataset.text = originalTitleText;
             subtitle.textContent = originalSubtitleText;
 
-            // Restart original glitches (will now be intensified)
-            applyTitleGlitch(); // This also handles starting persistent subtitle glitch
+            
+            applyTitleGlitch(); 
 
-             // Remove red class from particles
+             
             if (particles.length) {
                 particles.forEach(p => p.classList.remove('easter-egg-particle-red'));
             }
-             // Reset grid styles and resume animation
+             
             if (grid) {
                  gsap.set(grid, { opacity: 0.4, filter: 'none', backgroundPosition: '0 0' });
                  if (cyberGridTween) cyberGridTween.restart(true);
             }
 
-            // *** Remove Dialogue Container for First Trigger ***
+            
             if (dialogueGlitch.container && dialogueGlitch.container.parentNode) {
                 dialogueGlitch.container.parentNode.removeChild(dialogueGlitch.container);
             }
 
 
-            // Fade gradient back down and resume breathing
+            
             if (gradientElement && gradientBreathingTween) {
                 gsap.to(gradientElement, { opacity: 0.6, duration: 1.0, ease: "power2.inOut", onComplete: () => gradientBreathingTween.resume() });
             } else if (gradientElement) {
@@ -2128,9 +2026,9 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         });
 
     } else {
-        // --- SUBSEQUENT TRIGGER SEQUENCE (NO NO NO + Dialogue) ---
+        
 
-        // Select elements for "NO NO NO"
+        
         const selector = `
             header .company-name,
             #main-content h1.glitch-title,
@@ -2140,39 +2038,39 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         `;
         const elementsToChange = document.querySelectorAll(selector);
 
-        // Store original texts before changing
+        
         const originalTexts = Array.from(elementsToChange).map(el => {
              return { element: el, text: el.textContent, dataText: el.dataset.text };
         });
 
-        // Apply "NO NO NO" state and red color
+        
         elementsToChange.forEach(el => {
             el.textContent = "NO NO NO NO";
-            if (el.dataset.text !== undefined) { // Update data-text for glitch title
+            if (el.dataset.text !== undefined) { 
                 el.dataset.text = "NO NO NO NO";
             }
             el.classList.add('easter-egg-red');
         });
 
 
-        // Temporary Intense Glitch (1 second)
+        
         const tempDuration = 1;
 
-        // *** Create Dialogue Glitch for Subsequent Trigger ***
+        
         dialogueGlitch = _createAndAnimateDialogueGlitch(tempDuration);
 
 
-        // *** Add Title Glitch for Subsequent Trigger (already covered by elementsToChange loop) ***
+        
         let tempSubsequentTitleVisualTl = null;
-        if (title && elementsToChange.length > 0 && Array.from(elementsToChange).includes(title)) { // Check if title is part of the changed elements
+        if (title && elementsToChange.length > 0 && Array.from(elementsToChange).includes(title)) { 
              tempSubsequentTitleVisualTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.1), repeatDelay: 0 });
-             // Apply visual glitch effect
+             
              tempSubsequentTitleVisualTl.to(title, { x: () => Math.random() * 30 - 15, skewX: () => Math.random() * 40 - 20, opacity: () => 0.5 + Math.random() * 0.5, duration: 0.05, ease: "steps(1)" });
              tempSubsequentTitleVisualTl.to(title, { x: 0, skewX: 0, opacity: 1, duration: 0.05, ease: "steps(1)" });
         }
 
 
-        // Temporary Particle Glitch (Subsequent Trigger)
+        
         let tempParticleTl = null;
         if (particles.length) {
             tempParticleTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.08), repeatDelay: 0 });
@@ -2182,7 +2080,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
             });
         }
 
-        // Temporary Grid Glitch (Subsequent Trigger)
+        
         let tempGridTl = null;
         if (grid) {
             tempGridTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.08), repeatDelay: 0 });
@@ -2193,7 +2091,7 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
              tempGridTl.to(grid, { opacity: 0.4, filter: 'none', duration: 0.04, ease: "steps(1)" });
         }
 
-        // Also glitch header logo if present (make it flicker more intensely)
+        
         let tempHeaderLogoTl = null;
         if (headerLogo) {
              tempHeaderLogoTl = gsap.timeline({ repeat: Math.floor(tempDuration / 0.06), repeatDelay: 0 });
@@ -2202,23 +2100,23 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
         }
 
 
-        // Revert After 1 Second
+        
         gsap.delayedCall(tempDuration, () => {
-            // *** Kill Dialogue Glitch for Subsequent Trigger ***
+            
             if (dialogueGlitch.timeline) dialogueGlitch.timeline.kill();
-            // *** Kill Title Visual Glitch for Subsequent Trigger ***
+            
             if (tempSubsequentTitleVisualTl) tempSubsequentTitleVisualTl.kill();
             if (tempHeaderLogoTl) tempHeaderLogoTl.kill();
             if (tempParticleTl) tempParticleTl.kill();
             if (tempGridTl) tempGridTl.kill();
 
-            // *** Remove Dialogue Container for Subsequent Trigger ***
+            
             if (dialogueGlitch.container && dialogueGlitch.container.parentNode) {
                 dialogueGlitch.container.parentNode.removeChild(dialogueGlitch.container);
             }
 
 
-            // Restore original texts and remove red class
+            
             originalTexts.forEach(item => {
                 item.element.textContent = item.text;
                 if (item.dataText !== undefined) {
@@ -2227,30 +2125,30 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
                  item.element.classList.remove('easter-egg-red');
             });
 
-            // Explicitly reset styles potentially affected by the temporary glitch
-            gsap.set(elementsToChange, { x: 0, y: 0, skewX: 0, opacity: 1 }); // Reset styles for NO NO NO elements
+            
+            gsap.set(elementsToChange, { x: 0, y: 0, skewX: 0, opacity: 1 }); 
             if (headerLogo) {
                 gsap.set(headerLogo, { autoAlpha: 1 });
             }
 
-            // Resume normal (intensified) glitches
+            
             if (originalTitleGlitchTl) originalTitleGlitchTl.resume();
             if (originalLogoGlitchTl) originalLogoGlitchTl.resume();
             if (originalRgbTl) originalRgbTl.resume();
             if (subtitlePersistentGlitchTl) subtitlePersistentGlitchTl.resume();
 
-             // Remove red class from particles
+             
             if (particles.length) {
                 particles.forEach(p => p.classList.remove('easter-egg-particle-red'));
             }
-             // Reset grid styles and resume animation
+             
             if (grid) {
                  gsap.set(grid, { opacity: 0.4, filter: 'none', backgroundPosition: '0 0' });
                  if (cyberGridTween) cyberGridTween.restart(true);
             }
 
 
-            // Fade gradient back down and resume breathing
+            
             if (gradientElement && gradientBreathingTween) {
                 gsap.to(gradientElement, { opacity: 0.6, duration: 1.0, ease: "power2.inOut", onComplete: () => gradientBreathingTween.resume() });
             } else if (gradientElement) {
@@ -2260,4 +2158,4 @@ function triggerEasterEgg(isFirstTime) { // Added isFirstTime argument
     }
 }
 
-// Initialization is now handled by main.js
+

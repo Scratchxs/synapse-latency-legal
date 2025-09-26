@@ -1,22 +1,17 @@
-/**
- * Text Effects for Synapse: Latency
- * Adds cyberpunk-themed text animations and effects
- */
 
-// Initialize text effects when DOM is loaded
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    // Only apply effects if reduced motion is not preferred
+    
     if (!reducedMotion) {
         initTextEffects();
     }
 });
 
-/**
- * Initialize all text effects
- */
+
 function initTextEffects() {
     createSplitTextEffects();
     addHoverEffects();
@@ -24,14 +19,11 @@ function initTextEffects() {
     addDataStreamEffect();
 }
 
-/**
- * Create split text effects for headings
- * Uses GSAP SplitText if available, otherwise falls back to simple effects
- */
+
 function createSplitTextEffects() {
-    // Check if SplitText is available
+    
     if (typeof SplitText !== 'undefined') {
-        // Apply to main heading
+        
         const h1 = document.querySelector('h1');
         if (h1) {
             const split = new SplitText(h1, { type: "chars" });
@@ -45,13 +37,13 @@ function createSplitTextEffects() {
                 duration: 0.8,
                 ease: "back.out(1.7)",
                 onComplete: () => {
-                    // Add subtle hover effect after animation completes
+                    
                     h1.classList.add('text-effect-ready');
                 }
             });
         }
     } else {
-        // Fallback for when SplitText is not available
+        
         const h1 = document.querySelector('h1');
         if (h1) {
             gsap.from(h1, {
@@ -67,11 +59,9 @@ function createSplitTextEffects() {
     }
 }
 
-/**
- * Add hover effects to text elements
- */
+
 function addHoverEffects() {
-    // Add hover effect to headings
+    
     gsap.utils.toArray('h2').forEach(heading => {
         heading.addEventListener('mouseenter', () => {
             gsap.to(heading, {
@@ -90,10 +80,10 @@ function addHoverEffects() {
         });
     });
     
-    // Add hover effect to links with glitch
+    
     gsap.utils.toArray('a').forEach(link => {
         link.addEventListener('mouseenter', () => {
-            // Create glitch effect
+            
             const glitchTl = gsap.timeline();
             
             glitchTl.to(link, {
@@ -130,29 +120,27 @@ function addHoverEffects() {
     });
 }
 
-/**
- * Create text glitch effects
- */
+
 function createTextGlitchEffects() {
-    // Add random glitch effect to footer text
+    
     const footerText = document.querySelectorAll('.footer');
     
     if (footerText.length > 0) {
-        // Create interval for random glitches
+        
         setInterval(() => {
-            // Only trigger occasionally
+            
             if (Math.random() > 0.9) {
                 const randomIndex = Math.floor(Math.random() * footerText.length);
                 const element = footerText[randomIndex];
                 
-                // Create glitch timeline
+                
                 const glitchTl = gsap.timeline();
                 
-                // Store original text
+                
                 const originalText = element.textContent;
                 const glitchChars = '!@#$%^&*()_+-=[]{}|;:,.<>?/';
                 
-                // Create glitched text
+                
                 let glitchedText = '';
                 for (let i = 0; i < originalText.length; i++) {
                     if (Math.random() > 0.8) {
@@ -162,7 +150,7 @@ function createTextGlitchEffects() {
                     }
                 }
                 
-                // Apply glitch
+                
                 glitchTl.to(element, {
                     duration: 0.1,
                     ease: 'steps(1)',
@@ -171,7 +159,7 @@ function createTextGlitchEffects() {
                     }
                 });
                 
-                // Restore original text
+                
                 glitchTl.to(element, {
                     duration: 0.1,
                     ease: 'steps(1)',
@@ -183,23 +171,23 @@ function createTextGlitchEffects() {
         }, 3000);
     }
     
-    // Add glitch effect to smiley
+    
     const smiley = document.querySelector('.smiley');
     if (smiley) {
-        // Create interval for random glitches
+        
         setInterval(() => {
-            // Only trigger occasionally
+            
             if (Math.random() > 0.7) {
                 const glitchTl = gsap.timeline();
                 
-                // Store original text
+                
                 const originalText = smiley.textContent;
                 
-                // Create glitched text options
+                
                 const glitchOptions = [':(', ':|', ':/', ':?', ':>', ':<', ':$', ':@'];
                 const glitchedText = glitchOptions[Math.floor(Math.random() * glitchOptions.length)];
                 
-                // Apply glitch
+                
                 glitchTl.to(smiley, {
                     duration: 0.1,
                     ease: 'steps(1)',
@@ -208,7 +196,7 @@ function createTextGlitchEffects() {
                     }
                 });
                 
-                // Restore original text
+                
                 glitchTl.to(smiley, {
                     duration: 0.1,
                     ease: 'steps(1)',
@@ -221,12 +209,9 @@ function createTextGlitchEffects() {
     }
 }
 
-/**
- * Add data stream effect to the page
- * Creates a cyberpunk-style data stream that appears occasionally
- */
+
 function addDataStreamEffect() {
-    // Create data stream container
+    
     const streamContainer = document.createElement('div');
     streamContainer.className = 'data-stream-container';
     streamContainer.style.position = 'fixed';
@@ -239,24 +224,22 @@ function addDataStreamEffect() {
     streamContainer.style.overflow = 'hidden';
     streamContainer.style.opacity = '0';
     
-    // Append to body
+    
     document.body.appendChild(streamContainer);
     
-    // Create interval for random data streams
+    
     setInterval(() => {
-        // Only trigger occasionally
+        
         if (Math.random() > 0.9) {
-            // Create data stream
+            
             createDataStream(streamContainer);
         }
     }, 8000);
 }
 
-/**
- * Create a single data stream instance
- */
+
 function createDataStream(container) {
-    // Create stream element
+    
     const stream = document.createElement('div');
     stream.className = 'data-stream';
     stream.style.position = 'absolute';
@@ -267,27 +250,27 @@ function createDataStream(container) {
     stream.style.background = 'linear-gradient(to bottom, rgba(255,0,60,0), rgba(255,0,60,0.7), rgba(255,0,60,0))';
     stream.style.boxShadow = '0 0 8px rgba(255,0,60,0.5)';
     
-    // Append to container
+    
     container.appendChild(stream);
     
-    // Show container
+    
     gsap.to(container, {
         opacity: 0.7,
         duration: 0.5
     });
     
-    // Animate stream
+    
     gsap.to(stream, {
         top: '100%',
         duration: 2 + Math.random() * 3,
         ease: 'none',
         onComplete: () => {
-            // Remove stream
+            
             stream.remove();
             
-            // Check if container is empty
+            
             if (container.children.length === 0) {
-                // Hide container
+                
                 gsap.to(container, {
                     opacity: 0,
                     duration: 0.5
@@ -296,11 +279,11 @@ function createDataStream(container) {
         }
     });
     
-    // Add data bits to stream
+    
     const bitCount = 5 + Math.floor(Math.random() * 10);
     
     for (let i = 0; i < bitCount; i++) {
-        // Create data bit
+        
         const bit = document.createElement('div');
         bit.className = 'data-bit';
         bit.style.position = 'absolute';
@@ -312,7 +295,7 @@ function createDataStream(container) {
         bit.style.top = `${i * (100 / bitCount)}%`;
         bit.style.right = '-1px';
         
-        // Append to stream
+        
         stream.appendChild(bit);
     }
 }

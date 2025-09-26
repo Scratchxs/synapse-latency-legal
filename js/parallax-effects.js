@@ -1,24 +1,19 @@
-/**
- * Parallax Effects for Synapse: Latency
- * Creates advanced parallax effects for a more immersive cyberpunk experience
- */
 
-// Initialize parallax effects when DOM is loaded
+
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    // Only apply effects if reduced motion is not preferred
+    
     if (!reducedMotion) {
         initParallaxEffects();
     }
 });
 
-/**
- * Initialize all parallax effects
- */
+
 function initParallaxEffects() {
-    // Check if GSAP and ScrollTrigger are available
+    
     if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
         createParallaxLayers();
         createFloatingElements();
@@ -28,11 +23,9 @@ function initParallaxEffects() {
     }
 }
 
-/**
- * Create parallax layers for depth effect
- */
+
 function createParallaxLayers() {
-    // Create container for parallax elements
+    
     const parallaxContainer = document.createElement('div');
     parallaxContainer.className = 'parallax-container';
     parallaxContainer.style.position = 'fixed';
@@ -44,14 +37,14 @@ function createParallaxLayers() {
     parallaxContainer.style.pointerEvents = 'none';
     parallaxContainer.style.overflow = 'hidden';
     
-    // Append to body
+    
     document.body.appendChild(parallaxContainer);
     
-    // Create parallax layers
+    
     const layerCount = 3;
     
     for (let i = 0; i < layerCount; i++) {
-        // Create layer
+        
         const layer = document.createElement('div');
         layer.className = `parallax-layer layer-${i}`;
         layer.style.position = 'absolute';
@@ -61,23 +54,23 @@ function createParallaxLayers() {
         layer.style.height = '100%';
         layer.style.zIndex = `-${i + 1}`;
         
-        // Add layer-specific styling
+        
         switch (i) {
-            case 0: // Front layer - small dots
+            case 0: 
                 createParticlesInLayer(layer, 20, 2, 3, 0.4);
                 break;
-            case 1: // Middle layer - medium dots
+            case 1: 
                 createParticlesInLayer(layer, 15, 3, 5, 0.3);
                 break;
-            case 2: // Back layer - large dots
+            case 2: 
                 createParticlesInLayer(layer, 10, 5, 8, 0.2);
                 break;
         }
         
-        // Append to container
+        
         parallaxContainer.appendChild(layer);
         
-        // Create parallax effect
+        
         gsap.to(layer, {
             y: `${(i + 1) * 10}%`,
             scrollTrigger: {
@@ -91,23 +84,21 @@ function createParallaxLayers() {
     }
 }
 
-/**
- * Create particles within a layer
- */
+
 function createParticlesInLayer(layer, count, minSize, maxSize, opacity) {
     for (let i = 0; i < count; i++) {
-        // Create particle
+        
         const particle = document.createElement('div');
         particle.className = 'parallax-particle';
         
-        // Random position
+        
         const x = Math.random() * 100;
         const y = Math.random() * 100;
         
-        // Random size
+        
         const size = minSize + Math.random() * (maxSize - minSize);
         
-        // Set styles
+        
         particle.style.position = 'absolute';
         particle.style.left = `${x}%`;
         particle.style.top = `${y}%`;
@@ -117,29 +108,27 @@ function createParticlesInLayer(layer, count, minSize, maxSize, opacity) {
         particle.style.backgroundColor = 'rgba(255, 0, 60, ' + opacity + ')';
         particle.style.boxShadow = `0 0 ${size * 2}px rgba(255, 0, 60, ${opacity / 2})`;
         
-        // Append to layer
+        
         layer.appendChild(particle);
     }
 }
 
-/**
- * Create floating elements that move on scroll
- */
+
 function createFloatingElements() {
-    // Create floating elements
+    
     const floatingElements = [];
     const elementCount = 5;
     
     for (let i = 0; i < elementCount; i++) {
-        // Create element
+        
         const element = document.createElement('div');
         element.className = 'floating-element';
         
-        // Random position
-        const x = Math.random() * 90 + 5; // Keep away from edges
-        const y = Math.random() * 70 + 15; // Keep away from top and bottom
         
-        // Set styles
+        const x = Math.random() * 90 + 5; 
+        const y = Math.random() * 70 + 15; 
+        
+        
         element.style.position = 'fixed';
         element.style.left = `${x}%`;
         element.style.top = `${y}%`;
@@ -151,13 +140,13 @@ function createFloatingElements() {
         element.style.pointerEvents = 'none';
         element.style.transform = 'rotate(' + (Math.random() * 90 - 45) + 'deg)';
         
-        // Append to body
+        
         document.body.appendChild(element);
         
-        // Store element
+        
         floatingElements.push(element);
         
-        // Create floating animation
+        
         gsap.to(element, {
             y: `${(Math.random() * 40) - 20}`,
             x: `${(Math.random() * 40) - 20}`,
@@ -173,13 +162,11 @@ function createFloatingElements() {
     }
 }
 
-/**
- * Create glitch effects that trigger on scroll
- */
+
 function createScrollBasedGlitches() {
-    // Detect if console is open (console affects viewport dimensions)
+    
     let lastGlitchTime = 0;
-    const glitchCooldown = 1000; // Minimum 1 second between glitches
+    const glitchCooldown = 1000; 
     
     function isConsoleOpen() {
         const threshold = 160;
@@ -187,31 +174,31 @@ function createScrollBasedGlitches() {
                window.outerWidth - window.innerWidth > threshold;
     }
     
-    // Create scroll-based glitch effect
+    
     ScrollTrigger.create({
         trigger: 'body',
         start: 'top top',
         end: 'bottom bottom',
         onUpdate: (self) => {
-            // Trigger glitch effect at certain scroll positions
+            
             const scrollPos = self.progress;
             const currentTime = Date.now();
             
-            // Skip glitch effects if console is open to prevent headaches
+            
             if (isConsoleOpen()) {
                 return;
             }
             
-            // Add cooldown to prevent rapid flickering
+            
             if (currentTime - lastGlitchTime < glitchCooldown) {
                 return;
             }
             
-            // Create glitch at specific scroll positions or randomly (reduced frequency)
+            
             if (scrollPos > 0.25 && scrollPos < 0.255 ||
                 scrollPos > 0.5 && scrollPos < 0.505 ||
                 scrollPos > 0.75 && scrollPos < 0.755 ||
-                Math.random() > 0.998) { // Reduced from 0.995 to 0.998 for less frequent glitches
+                Math.random() > 0.998) { 
                 
                 lastGlitchTime = currentTime;
                 createGlitchEffect();
@@ -220,11 +207,9 @@ function createScrollBasedGlitches() {
     });
 }
 
-/**
- * Create a single glitch effect
- */
+
 function createGlitchEffect() {
-    // Create glitch overlay
+    
     const glitch = document.createElement('div');
     glitch.className = 'scroll-glitch';
     glitch.style.position = 'fixed';
@@ -237,17 +222,17 @@ function createGlitchEffect() {
     glitch.style.pointerEvents = 'none';
     glitch.style.mixBlendMode = 'overlay';
     
-    // Append to body
+    
     document.body.appendChild(glitch);
     
-    // Create glitch timeline
+    
     const glitchTl = gsap.timeline({
         onComplete: () => {
             glitch.remove();
         }
     });
     
-    // Add glitch effect
+    
     glitchTl.to(glitch, {
         duration: 0.05,
         opacity: 0.8,
@@ -262,7 +247,7 @@ function createGlitchEffect() {
         ease: 'steps(1)'
     });
     
-    // Add screen shift
+    
     const xShift = (Math.random() - 0.5) * 20;
     const yShift = (Math.random() - 0.5) * 20;
     
@@ -281,11 +266,9 @@ function createGlitchEffect() {
     }, 0.05);
 }
 
-/**
- * Create a scroll-triggered RGB split effect
- */
+
 function createRGBSplitEffect() {
-    // Create RGB split elements
+    
     const rgbContainer = document.createElement('div');
     rgbContainer.className = 'rgb-split-container';
     rgbContainer.style.position = 'fixed';
@@ -297,7 +280,7 @@ function createRGBSplitEffect() {
     rgbContainer.style.pointerEvents = 'none';
     rgbContainer.style.opacity = '0';
     
-    // Create RGB layers
+    
     const redLayer = document.createElement('div');
     redLayer.className = 'rgb-layer red-layer';
     redLayer.style.position = 'absolute';
@@ -330,17 +313,17 @@ function createRGBSplitEffect() {
     blueLayer.style.mixBlendMode = 'multiply';
     blueLayer.style.transform = 'translateX(5px)';
     
-    // Append layers to container
+    
     rgbContainer.appendChild(redLayer);
     rgbContainer.appendChild(greenLayer);
     rgbContainer.appendChild(blueLayer);
     
-    // Append container to body
+    
     document.body.appendChild(rgbContainer);
     
-    // Create scroll-triggered effect
+    
     let lastRgbTime = 0;
-    const rgbCooldown = 500; // Minimum 500ms between RGB effects
+    const rgbCooldown = 500; 
     
     function isConsoleOpen() {
         const threshold = 160;
@@ -353,24 +336,24 @@ function createRGBSplitEffect() {
         start: 'top top',
         end: 'bottom bottom',
         onUpdate: (self) => {
-            // Skip RGB effects if console is open to prevent headaches
+            
             if (isConsoleOpen()) {
                 return;
             }
             
-            // Trigger RGB split at certain scroll velocities
+            
             const velocity = Math.abs(self.getVelocity() / 1000);
             const currentTime = Date.now();
             
-            // Add cooldown to prevent rapid flickering
+            
             if (currentTime - lastRgbTime < rgbCooldown) {
                 return;
             }
             
-            if (velocity > 1.5) { // Increased threshold from 1 to 1.5 to reduce sensitivity
+            if (velocity > 1.5) { 
                 lastRgbTime = currentTime;
-                const intensity = Math.min(velocity / 15, 0.3); // Reduced max intensity from 0.5 to 0.3
-                const offset = Math.min(velocity * 1.5, 8); // Reduced multiplier and max offset
+                const intensity = Math.min(velocity / 15, 0.3); 
+                const offset = Math.min(velocity * 1.5, 8); 
                 
                 gsap.to(rgbContainer, {
                     opacity: intensity,
@@ -409,12 +392,12 @@ function createRGBSplitEffect() {
     });
 }
 
-// Call RGB split effect initialization
+
 document.addEventListener('DOMContentLoaded', () => {
-    // Check for reduced motion preference
+    
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
-    // Only apply effects if reduced motion is not preferred
+    
     if (!reducedMotion) {
         createRGBSplitEffect();
     }
